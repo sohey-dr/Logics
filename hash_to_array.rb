@@ -3,3 +3,5 @@ array = []
   array.push("#{hash[:volume]}#{hash[:unit]}")
 end
 p array
+
+puts [{:volume=>350, :unit=>"ml"}, {:volume=>24, :unit=>"本"}]
