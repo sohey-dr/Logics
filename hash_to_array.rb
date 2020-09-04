@@ -5,3 +5,5 @@ end
 p array
 
 puts [{:volume=>350, :unit=>"ml"}, {:volume=>24, :unit=>"本"}]
+
+p ["350ml"].join(',')
