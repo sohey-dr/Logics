@@ -11,4 +11,4 @@ fetch_all_channels_url = "https://slack.com/api/conversations.list?token=#{TOKEN
 res = Net::HTTP.get(URI.parse(fetch_all_channels_url))
 channel_hash = JSON.parse(res)
 channels = channel_hash["channels"]
-channels = channels.each { |channel| p channel["name"] } # 削除されたチャンネルや所属人数が0のチャンネルを除外
+channels = channels.each { |channel| p channel["name"] }
