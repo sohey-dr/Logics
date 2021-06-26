@@ -3,7 +3,7 @@ require 'uri'
 require "json"
 require 'pp'
 
-TOKEN = "xoxb-324037009922-958746922000-t28FH2rsSxB5tTYAWkpUGApN"
+TOKEN = ""
 SLACK_API_BASE = 'https://slack.com/api'
 
 fetch_all_channels_url = "https://slack.com/api/conversations.list?token=#{TOKEN}&types=public_channel,private_channel&limit=10"
