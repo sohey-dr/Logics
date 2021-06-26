@@ -6,8 +6,7 @@ require 'pp'
 TOKEN = ""
 SLACK_API_BASE = 'https://slack.com/api'
 
-
-fetch_all_channels_url = "https://slack.com/api/conversations.list?token=#{TOKEN}"
+fetch_all_channels_url = "https://slack.com/api/conversations.list?token=#{TOKEN}&types=public_channel,private_channel&limit=10"
 res = Net::HTTP.get(URI.parse(fetch_all_channels_url))
 channel_hash = JSON.parse(res)
 channels = channel_hash["channels"]
