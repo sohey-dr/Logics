@@ -49,14 +49,6 @@ class GetSlackChannel
     { "Authorization" => "Bearer #{token}" }
   end
 
-  def request
-    Net::HTTP::Get.new(uri.path)
-  end
-
-  def set_header
-    request.initialize_http_header(headers)
-  end
-
   def next_cursor
     # 1000件までしか取得できないため、次の情報を以下の値から取得できる
     response_hash["response_metadata"]["next_cursor"]
