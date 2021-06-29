@@ -13,7 +13,12 @@ class GetSlackChannel
   attr_reader :token
 
   def initialize(token)
-    TOKEN = token
+    @token = token
+  end
+
+  def get_slack_channels
+    http.use_ssl = uri.scheme === "https"
+    puts response_hash
   end
 
   def channels
@@ -25,7 +30,7 @@ class GetSlackChannel
   end
 
   def response
-    http.request(req)
+    http.get(uri.path, headers).body
   end
 
   def req_url
@@ -37,11 +42,11 @@ class GetSlackChannel
   end
 
   def http
-    Net::HTTP.new(uri.host, uri.port)
+    @http ||= Net::HTTP.new(uri.host, uri.port)
   end
 
   def headers
-    { "Authorization" => TOKEN }
+    { "Authorization" => "Bearer #{token}" }
   end
 
   def request
@@ -49,7 +54,7 @@ class GetSlackChannel
   end
 
   def set_header
-    req.initialize_http_header(headers)
+    request.initialize_http_header(headers)
   end
 
   def next_cursor
@@ -58,4 +63,4 @@ class GetSlackChannel
   end
 end
 
-GetSlackChannel.new().
+GetSlackChannel.new("").get_slack_channels
