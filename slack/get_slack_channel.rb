@@ -2,15 +2,60 @@ require 'net/http'
 require 'uri'
 require "json"
 require 'pp'
+require "csv"
 
-TOKEN = ""
-SLACK_API_BASE = 'https://slack.com/api'
+=begin
+Slack APIのconversations.list(https://api.slack.com/methods/conversations.list)を用いてチャンネル一覧を取得するプログラム
+メソッドを加えることで取得した値をCSVに書き出すようになっている
+=end
 
-fetch_all_channels_url = "https://slack.com/api/conversations.list?token=#{TOKEN}&types=public_channel,private_channel&limit=1000"
-res = Net::HTTP.get(URI.parse(fetch_all_channels_url))
-channel_hash = JSON.parse(res)
-channels = channel_hash["channels"]
-channels = channels.each { |channel| puts channel["name"] }
+class GetSlackChannel
+  attr_reader :token
 
-# 1000件までしか取得できないため、次の情報を以下の値から取得できる
-puts channel_hash["response_metadata"]["next_cursor"]
+  def initialize(token)
+    TOKEN = token
+  end
+
+  def channels
+    response_hash["channels"]
+  end
+
+  def response_hash
+    JSON.parse(response)
+  end
+
+  def response
+    http.request(req)
+  end
+
+  def req_url
+    "https://slack.com/api/conversations.list?types=public_channel,private_channel"
+  end
+
+  def uri
+    @uri ||= URI.parse(req_url)
+  end
+
+  def http
+    Net::HTTP.new(uri.host, uri.port)
+  end
+
+  def headers
+    { "Authorization" => TOKEN }
+  end
+
+  def request
+    Net::HTTP::Get.new(uri.path)
+  end
+
+  def set_header
+    req.initialize_http_header(headers)
+  end
+
+  def next_cursor
+    # 1000件までしか取得できないため、次の情報を以下の値から取得できる
+    response_hash["response_metadata"]["next_cursor"]
+  end
+end
+
+GetSlackChannel.new().
