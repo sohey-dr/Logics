@@ -19,13 +19,12 @@ class GetSlackChannel
   def conversations_list
     http.use_ssl = uri.scheme === "https"
     write_csv
+    puts next_cursor unless next_cursor.nil?
   end
 
   def write_csv
     channels.each do |c|
       channel_name = c["name"]
-      channel_type = nil
-
       channel_type = /academy|career|boarding|transfer/ =~ channel_name ? 0 : 1
 
       CSV.open('slack/channels.csv','a') do |csv|
