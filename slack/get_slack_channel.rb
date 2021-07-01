@@ -26,11 +26,7 @@ class GetSlackChannel
       channel_name = c["name"]
       channel_type = nil
 
-      if /academy|career|boarding|transfer/ =~ channel_name
-        channel_type = 0
-      else
-        channel_type = 1
-      end
+      channel_type = /academy|career|boarding|transfer/ =~ channel_name ? 0 : 1
 
       CSV.open('slack/channels.csv','a') do |csv|
         csv << [channel_type, channel_name]
