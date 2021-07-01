@@ -16,7 +16,7 @@ class GetSlackChannel
     @token = token
   end
 
-  def get_slack_channels
+  def conversations_list
     http.use_ssl = uri.scheme === "https"
     write_csv
   end
@@ -68,4 +68,4 @@ class GetSlackChannel
   end
 end
 
-GetSlackChannel.new("").get_slack_channels
+GetSlackChannel.new("").conversations_list
