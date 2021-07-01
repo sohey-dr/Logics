@@ -22,8 +22,17 @@ class GetSlackChannel
   end
 
   def write_csv
-    channels.each do |c| 
-      puts "#{c["name"]}, #{c["name"]}"
+    channels.each do |c|
+      channel_name = c["name"]
+      channel_type = nil
+
+      if /academy|career|boarding|transfer/ =~ channel_name
+        channel_type = 0
+      else
+        channel_type = 1
+      end
+
+      puts "#{channel_type}, #{channel_name}"
     end
   end
 
