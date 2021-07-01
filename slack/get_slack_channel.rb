@@ -32,7 +32,9 @@ class GetSlackChannel
         channel_type = 1
       end
 
-      puts "#{channel_type}, #{channel_name}"
+      CSV.open('slack/channels.csv','a') do |csv|
+        csv << [channel_type, channel_name]
+      end
     end
   end
 
