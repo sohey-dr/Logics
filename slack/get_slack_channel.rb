@@ -18,7 +18,13 @@ class GetSlackChannel
 
   def get_slack_channels
     http.use_ssl = uri.scheme === "https"
-    puts response_hash
+    write_csv
+  end
+
+  def write_csv
+    channels.each do |c| 
+      puts "#{c["name"]}, #{c["name"]}"
+    end
   end
 
   def channels
@@ -30,11 +36,11 @@ class GetSlackChannel
   end
 
   def response
-    http.get(uri.path, headers).body
+    http.get(uri, headers).body
   end
 
   def req_url
-    "https://slack.com/api/conversations.list?types=public_channel,private_channel"
+    "https://slack.com/api/conversations.list?exclude_archived=true&limit=1000&types=private_channel&pretty=1"
   end
 
   def uri
