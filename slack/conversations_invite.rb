@@ -18,7 +18,7 @@ class ConversationsInvite
   end
 
   def channel_id
-    @channel_id ||= CSV.read("./channels.csv").map{|row| row[1]}
+    @channel_id ||= CSV.read("slack/channels.csv").map{|row| row[1]}
   end
 
   def method_name
