@@ -62,7 +62,7 @@ class GetSlackChannel
 
   def req_url
     # cursorでページネーションを行う
-    "https://slack.com/api/conversations.list?exclude_archived=true&limit=1000&types=private_channel&pretty=1&cursor="
+    "https://slack.com/api/conversations.list?exclude_archived=true&limit=1000&types=public_channel,private_channel&pretty=1&cursor="
   end
 
   def uri
