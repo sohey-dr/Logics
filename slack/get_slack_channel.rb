@@ -19,7 +19,7 @@ class GetSlackChannel
   def conversations_list
     http.use_ssl = uri.scheme === "https"
     write_csv
-    puts next_cursor unless next_cursor.nil?
+    puts "next cursor: #{next_cursor}" unless next_cursor.nil?
   end
 
   def write_csv
@@ -47,7 +47,7 @@ class GetSlackChannel
 
   def req_url
     # cursorでページネーションを行う
-    "https://slack.com/api/conversations.list?exclude_archived=true&limit=1000&types=private_channel&pretty=1"
+    "https://slack.com/api/conversations.list?exclude_archived=true&limit=1000&types=private_channel&pretty=1&cursor="
   end
 
   def uri
