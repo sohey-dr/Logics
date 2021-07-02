@@ -23,13 +23,16 @@ class GetSlackChannel
   end
 
   def write_csv
+    # ページネーションごとに1000足す
+    i = 1
     channels.each do |c|
       channel_name = c["name"]
       channel_type = c["is_private"] ? find_private_channel_type(c) : "public"
 
       CSV.open('slack/channels.csv','a') do |csv|
-        csv << [c["id"], channel_type, channel_name]
+        csv << [i ,c["id"], channel_type, channel_name, Time.new, Time.new]
       end
+      i += 1
     end
   end
 
