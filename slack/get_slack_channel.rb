@@ -25,7 +25,7 @@ class GetSlackChannel
   def write_csv
     channels.each do |c|
       channel_name = c["name"]
-      channel_type = /academy|career|boarding|transfer/ =~ channel_name ? 0 : 1
+      channel_type = /academy|career|boarding|transfer/ =~ channel_name ?  "user_private" : "other_private"
 
       CSV.open('slack/channels.csv','a') do |csv|
         csv << [channel_type, channel_name]
