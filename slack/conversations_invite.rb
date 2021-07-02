@@ -18,6 +18,7 @@ class ConversationsInvite
   end
 
   def channel_id
+    # これメモ
     @channel_id ||= CSV.read("slack/channels.csv").map{|row| row[1]}
   end
 
