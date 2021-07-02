@@ -25,11 +25,26 @@ class GetSlackChannel
   def write_csv
     channels.each do |c|
       channel_name = c["name"]
-      channel_type = /academy|career|boarding|transfer/ =~ channel_name ?  "user_private" : "other_private"
+      channel_type = c["is_private"] ? find_private_channel_type(c) : find_public_channel_type(c)
 
       CSV.open('slack/channels.csv','a') do |csv|
         csv << [c["id"], channel_type, channel_name]
       end
+    end
+  end
+
+  def find_private_channel_type(c)
+    /academy|career|boarding|transfer/ =~ c["name"] ? "user_private" : "other_private"
+  end
+
+  def find_public_channel_type(c)
+    case 
+    when c["name"].include?("times-user")
+      "times-user"
+    when c["name"].include?("times-mentor")
+      "times-mentor"
+    else
+      "public"
     end
   end
 
