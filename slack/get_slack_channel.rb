@@ -34,7 +34,14 @@ class GetSlackChannel
   end
 
   def find_private_channel_type(c)
-    /academy|career|boarding|transfer/ =~ c["name"] ? "user_private" : "other_private"
+    case 
+    when /academy|career|boarding|transfer/ =~ c["name"]
+      "user_private"
+    when c["name"].include?("mentor-") || c["name"].include?("mentor_")
+      "mentor_private"
+    else
+      "other_private"
+    end
   end
 
   def find_public_channel_type(c)
