@@ -1,7 +1,4 @@
-require 'net/http'
-require 'uri'
-require "json"
-require 'pp'
+require 'slack-ruby-client'
 require "csv"
 
 =begin
@@ -10,22 +7,12 @@ Slack APIのconversations.invite(https://api.slack.com/methods/conversations.inv
 全てのチャンネルに招待するプログラム
 =end
 
-class ConversationsInvite
-  attr_reader :token
-
-  def initialize(token)
-    TOKEN = token
-  end
-
-  def channel_id
-    # これメモ
-    @channel_id ||= CSV.read("slack/channels.csv").map{|row| row[1]}
-  end
-
-  def method_name
-    
-  end
+Slack.configure do |conf|
+  conf.token = ""
 end
 
 
-ConversationsInvite.new().
+client = Slack::Web::Client.new
+user_list.members.each do |user|
+  client.conversations_invite(channel: "G01E5PDMSNT", users: "U01PNM7NA8J")
+end
