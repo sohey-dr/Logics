@@ -28,7 +28,7 @@ class GetSlackChannel
       channel_type = /academy|career|boarding|transfer/ =~ channel_name ?  "user_private" : "other_private"
 
       CSV.open('slack/channels.csv','a') do |csv|
-        csv << [channel_type, channel_name]
+        csv << [c["id"], channel_type, channel_name]
       end
     end
   end
