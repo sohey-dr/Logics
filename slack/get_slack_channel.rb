@@ -16,9 +16,21 @@ class GetSlackChannel
     @token = token
   end
 
-  def get_slack_channels
+  def conversations_list
     http.use_ssl = uri.scheme === "https"
-    puts response_hash
+    write_csv
+    puts next_cursor unless next_cursor.nil?
+  end
+
+  def write_csv
+    channels.each do |c|
+      channel_name = c["name"]
+      channel_type = /academy|career|boarding|transfer/ =~ channel_name ?  "user_private" : "other_private"
+
+      CSV.open('slack/channels.csv','a') do |csv|
+        csv << [channel_type, channel_name]
+      end
+    end
   end
 
   def channels
@@ -30,11 +42,12 @@ class GetSlackChannel
   end
 
   def response
-    http.get(uri.path, headers).body
+    http.get(uri, headers).body
   end
 
   def req_url
-    "https://slack.com/api/conversations.list?types=public_channel,private_channel"
+    # cursorでページネーションを行う
+    "https://slack.com/api/conversations.list?exclude_archived=true&limit=1000&types=private_channel&pretty=1"
   end
 
   def uri
@@ -49,18 +62,10 @@ class GetSlackChannel
     { "Authorization" => "Bearer #{token}" }
   end
 
-  def request
-    Net::HTTP::Get.new(uri.path)
-  end
-
-  def set_header
-    request.initialize_http_header(headers)
-  end
-
   def next_cursor
     # 1000件までしか取得できないため、次の情報を以下の値から取得できる
     response_hash["response_metadata"]["next_cursor"]
   end
 end
 
-GetSlackChannel.new("").get_slack_channels
+GetSlackChannel.new("").conversations_list
