@@ -64,7 +64,7 @@ class TimeTable
 
     bands.each.with_index(1) { |band, index|
       puts "#{start.strftime('%H:%M')}〜#{honban_band(start).strftime('%H:%M')} #{band}"
-      start += 25.minutes
+      start += 20.minutes
       
       # if lunch == false && start > Time.local(2021,03,20,12,10)
       #   lunch = true
@@ -100,7 +100,7 @@ class TimeTable
   end
 
   def honban_band(start)
-    start + 25.minutes
+    start + 20.minutes
   end
 
   def honban_kanki(start)
@@ -108,4 +108,4 @@ class TimeTable
   end
 end
 
-p TimeTable.new.run(13)
+TimeTable.new.run(12)
