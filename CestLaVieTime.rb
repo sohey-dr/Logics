@@ -108,4 +108,5 @@ class TimeTable
   end
 end
 
-TimeTable.new.run(14)
+puts "バンド数を入力してください"
+TimeTable.new.run(gets.to_i)
