@@ -108,4 +108,4 @@ class TimeTable
   end
 end
 
-TimeTable.new.run(12)
+TimeTable.new.run(14)
