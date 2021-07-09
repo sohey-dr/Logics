@@ -9,10 +9,12 @@ client = Slack::Web::Client.new
 
 rows = CSV.read("slack/tech_bowl/users (1).csv")
 rows.each do |row|
-  row[7] = client.users_lookupByEmail(email: row[14]).user.id
+  p row[14]
+  row[7] = client.users_lookupByEmail(email: row[14]).user.id rescue nil
+  sleep 1
 end
 
-CSV.open("slack/tech_bowl/users(registered_slack_id)", "w") do |csv|
+CSV.open("slack/tech_bowl/users(registered_slack_id).csv", "w") do |csv|
   rows.each do |row|
     csv << row
   end
