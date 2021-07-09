@@ -6,7 +6,7 @@
   "author": "sohey-H <60923547+sohey-dr@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
-    "csv": "^5.5.0",
+    "csv-parse": "^4.16.0",
     "express": "^4.17.1",
     "puppeteer": "^10.1.0"
   }
