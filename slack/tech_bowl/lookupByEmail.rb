@@ -14,8 +14,12 @@ rows.each do |row|
   sleep 1
 end
 
+users = rows.select do |row|
+  row[7] != nil
+end
+
 CSV.open("slack/tech_bowl/users(registered_slack_id).csv", "w") do |csv|
-  rows.each do |row|
-    csv << row
+  users.each do |user|
+    csv << user
   end
 end
