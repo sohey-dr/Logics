@@ -1,8 +1,9 @@
 require "csv"
 
 =begin
-チャンネル一覧取得
-
+チャンネル一覧取得して
+csvから登録されていないユーザーを一気に探す処理
+既に登録してる
 =end
 
 class LookupPrivateChannel
