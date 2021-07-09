@@ -1,5 +1,5 @@
-const fs = require('fs');
-const csvSync = require('csv-parse/lib/sync');
+const fs = require("fs");
+const csvSync = require("csv-parse/lib/sync");
 
 module.exports = class CSVReader {
   constructor() {}
@@ -10,7 +10,7 @@ module.exports = class CSVReader {
   }
 
   _readerCSV() {
-    const csv = fs.readFileSync('laravel-admin-puppeteer/perfect_user.csv');
+    const csv = fs.readFileSync("laravel-admin-puppeteer/perfect_user.csv");
     return csvSync(csv);
   }
-}
+};
