@@ -1,9 +1,9 @@
-const puppeteer = require('puppeteer');
+const puppeteer = require("puppeteer");
 
 class Register {
   constructor(user) {
     // userは配列
-    this.user = user
+    this.user = user;
   }
 
   async run() {
@@ -19,4 +19,4 @@ class Register {
   }
 }
 
-module.exports = Register
+module.exports = Register;
