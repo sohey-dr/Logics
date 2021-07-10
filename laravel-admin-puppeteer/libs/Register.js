@@ -1,7 +1,10 @@
 const puppeteer = require('puppeteer');
 
 class Register {
-  constructor() {}
+  constructor(user) {
+    // userは配列
+    this.user = user
+  }
 
   async run() {
     const browser = await puppeteer.launch({
