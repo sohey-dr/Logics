@@ -12,7 +12,7 @@ class Register {
   async run() {
     const browser = await puppeteer.launch({
       headless: false,
-      slowMo: 500,
+      slowMo: 50,
     });
 
     const page = await browser.newPage();
