@@ -25,6 +25,7 @@ class Register {
     );
 
     await this._login(page);
+    await page.waitForTimeout(1000);
 
     await browser.close();
   }
