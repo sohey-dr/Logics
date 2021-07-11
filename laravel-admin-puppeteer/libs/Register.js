@@ -26,6 +26,7 @@ class Register {
 
     await this._login(page);
     await page.waitForTimeout(1000);
+    await this._registerForSlack(page);
 
     await browser.close();
   }
@@ -33,6 +34,12 @@ class Register {
   async _login(page) {
     await page.type('input[name="username"]', process.env.USER_NAME);
     await page.type('input[name="password"]', process.env.USER_PASS);
+    await page.click('button[type="submit"]');
+  }
+
+  async _registerForSlack(page) {
+    await page.type('input[name="slack_id"]', this.userSlackId);
+    await page.type('input[name="messenger_tool_private_room_id"]', this.userPrivateRoomId);
     await page.click('button[type="submit"]');
   }
 }
