@@ -1,9 +1,8 @@
 (async() => {
   const Register = require("./libs/Register")
   const CSVReader = require("./libs/CSVReader")
-  const users = CSVReader.run();
-  users.forEach(user => {
+  for await (const user of users) {
     const register = new Register(user);
     await register.run();
-  });
+  };
 })();
