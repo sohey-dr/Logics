@@ -58,7 +58,7 @@ class TimeTable
     }
 
     puts "#{start.strftime('%H:%M')} ＼＼＼\\顔合わせ//／／／"
-    start += 30.minutes
+    start += 60.minutes
     puts "START  [[[   #{start.strftime('%H:%M')}   ]]]"
     kanki = 1
 
