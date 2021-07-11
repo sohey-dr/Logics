@@ -16,7 +16,7 @@ class Register {
     });
 
     const page = await browser.newPage();
-    await page.goto("https://www.google.com/");
+    await page.goto(process.env.TECHBOWL_BASEURL + "/admin" + "/users/" + this.userId + "/edit");
 
     await browser.close();
   }
