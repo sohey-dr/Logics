@@ -24,7 +24,15 @@ class Register {
         "/edit"
     );
 
+    await this._login(page);
+
     await browser.close();
+  }
+
+  async _login(page) {
+    await page.type('input[name="username"]', process.env.USER_NAME);
+    await page.type('input[name="password"]', process.env.USER_PASS);
+    await page.click('button[type="submit"]');
   }
 }
 
