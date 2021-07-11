@@ -3,7 +3,9 @@ const puppeteer = require("puppeteer");
 class Register {
   constructor(user) {
     // userは配列
-    this.user = user;
+    this.userId = user[0];
+    this.userPrivateRoomId = user[6];
+    this.userSlackId = user[7];
   }
 
   async run() {
