@@ -26,6 +26,9 @@ class Register {
 
     await this._login(page);
     await page.waitForTimeout(1000);
+
+    console.log("該当ユーザーID" + this.userId + ":" + this.userSlackId)
+
     await this._registerForSlack(page);
 
     await browser.close();
