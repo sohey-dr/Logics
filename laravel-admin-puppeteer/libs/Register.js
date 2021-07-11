@@ -16,7 +16,13 @@ class Register {
     });
 
     const page = await browser.newPage();
-    await page.goto(process.env.TECHBOWL_BASEURL + "/admin" + "/users/" + this.userId + "/edit");
+    await page.goto(
+      process.env.TECHBOWL_BASEURL +
+        "/admin" +
+        "/users/" +
+        this.userId +
+        "/edit"
+    );
 
     await browser.close();
   }
