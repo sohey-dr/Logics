@@ -11,7 +11,7 @@ module.exports = class CSVReader {
 
   _readerCSV() {
     // csvのカラムごとに分けて多次元配列として返す
-    const csv = fs.readFileSync("laravel-admin-puppeteer/perfect_user.csv");
+    const csv = fs.readFileSync("./perfect_user.csv");
     return csvSync(csv);
   }
 };
