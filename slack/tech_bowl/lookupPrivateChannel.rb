@@ -37,7 +37,7 @@ class LookupPrivateChannel
   end
 
   def users
-    @users ||= CSV.read("slack/tech_bowl/users(registered_slack_id).csv")
+    @users ||= CSV.read("slack/tech_bowl/not_have_channel.csv")
   end
 end
 
