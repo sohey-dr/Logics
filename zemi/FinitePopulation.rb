@@ -1,6 +1,7 @@
 =begin
 20210708にゼミでやった。
 母数に対して世論調査でどのくらいの人数調査すべきか出す。
+https://fukusima-zemi.vercel.app/finite_population にweb上でできるように実装
 =end
 
 class FinitePopulation
