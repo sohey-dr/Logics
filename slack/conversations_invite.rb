@@ -14,7 +14,13 @@ end
 client = Slack::Web::Client.new
 CSV.foreach('slack/tech_bowl/channels.csv') do |row|
   if row[2] == "mentor_private"
-    puts client.conversations_invite(channel: row[1], users: "UU6MYT400")
+    begin
+      puts client.conversations_invite(channel: row[1], users: "UU6MYT400")
+    rescue Slack::Web::Api::Errors::AlreadyInChannel
+      puts "次"
+      next
+    ensure
+      sleep 1
+    end
   end
-  # sleep 1
 end
