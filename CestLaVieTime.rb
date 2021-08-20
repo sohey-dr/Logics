@@ -40,7 +40,7 @@ class TimeTable
       bands.push("バンド#{n}")
     end
 
-    start = Time.local(2021,8,26,10,00)
+    start = Time.local(2021,8,26,13,00)
     puts "#{start.strftime('%H:%M')}〜#{rehear_band(start).strftime('%H:%M')} 音出しバンド"
     start += 15.minutes
 
@@ -58,7 +58,7 @@ class TimeTable
     }
 
     puts "#{start.strftime('%H:%M')} ＼＼＼\\顔合わせ//／／／"
-    start += 60.minutes
+    start += 10.minutes
     puts "START  [[[   #{start.strftime('%H:%M')}   ]]]"
     kanki = 1
 
