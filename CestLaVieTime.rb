@@ -46,25 +46,25 @@ class TimeTable
 
     bands.reverse.each.with_index(1) { |band, index|
       puts "#{start.strftime('%H:%M')}〜#{rehear_band(start).strftime('%H:%M')} #{band}"
-      start += 15.minutes
-      # if index == bands.size
-      #   break
-      # elsif kanki == 3
-      #   kanki = 0
-      #   puts "#{start.strftime('%H:%M')}〜#{rehear_kanki(start).strftime('%H:%M')} <換気>"
-      #   start += 5.minutes 
-      # end
+      start += 20.minutes
+      if index == bands.size
+        break
+      elsif kanki == 2
+        kanki = 0
+        puts "#{start.strftime('%H:%M')}〜#{rehear_kanki(start).strftime('%H:%M')} <換気>"
+        start += 5.minutes 
+      end
       kanki += 1
     }
 
     puts "#{start.strftime('%H:%M')} ＼＼＼\\顔合わせ//／／／"
-    start += 10.minutes
+    start += 20.minutes
     puts "START  [[[   #{start.strftime('%H:%M')}   ]]]"
     kanki = 1
 
     bands.each.with_index(1) { |band, index|
       puts "#{start.strftime('%H:%M')}〜#{honban_band(start).strftime('%H:%M')} #{band}"
-      start += 20.minutes
+      start += 15.minutes
       
       # if lunch == false && start > Time.local(2021,03,20,12,10)
       #   lunch = true
@@ -73,16 +73,15 @@ class TimeTable
       #   kanki = 0
       # end
 
-      # if index == bands.size
-      #   break
-      # elsif kanki == 3
-      #   kanki = 0
-      #   puts "#{start.strftime('%H:%M')}〜#{honban_kanki(start).strftime('%H:%M')} <換気>"
-      #   start += 10.minutes 
-      # else
-      #   start += 10.minutes
-      # end
-      start += 10.minutes
+      if index == bands.size
+        break
+      elsif kanki == 2
+        kanki = 0
+        puts "#{start.strftime('%H:%M')}〜#{honban_kanki(start).strftime('%H:%M')} <換気>"
+        start += 10.minutes 
+      else
+        start += 10.minutes
+      end
       kanki += 1
     }
 
@@ -100,7 +99,7 @@ class TimeTable
   end
 
   def honban_band(start)
-    start + 20.minutes
+    start + 15.minutes
   end
 
   def honban_kanki(start)
