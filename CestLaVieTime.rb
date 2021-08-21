@@ -12,10 +12,17 @@ class TimeTable
 
   def output
     rehearsal
+    performance_preparation
     performance
   end
 
   private
+
+  def performance_preparation
+    puts "#{time.strftime('%H:%M')} ＼＼＼\\顔合わせ//／／／"
+    @time += 20.minutes
+    puts "START  [[[   #{time.strftime('%H:%M')}   ]]]"
+  end
 
   def performance
     bands.each.with_index(1) { |band, index|
