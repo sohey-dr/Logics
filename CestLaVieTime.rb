@@ -10,9 +10,23 @@ class TimeTable
 
   def output
     rehearsal
+    performance
   end
 
   private
+
+  def performance
+    bands.each.with_index(1) { |band, index|
+      play_performance(band)
+      if index == bands.size
+        break
+      elsif index % 3 == 0
+        ventilation
+      else
+        convert
+      end
+    }
+  end
 
   def rehearsal
     bands.reverse.each.with_index(1) { |band, index|
@@ -28,18 +42,20 @@ class TimeTable
   end
 
   def play_rehearsal(band)
-    after_time = time + 20.minutes
+    after_time = time + 15.minutes
     puts "#{time.strftime('%H:%M')}〜#{after_time.strftime('%H:%M')} #{band}"
     @time = after_time
-  end
-
-  def play
-    @time += 20.minutes
   end
 
   def ventilation
     after_time = time + 5.minutes
     puts "#{time.strftime('%H:%M')}〜#{after_time.strftime('%H:%M')} <換気>"
+    @time = after_time
+  end
+
+  def play_performance(band)
+    after_time = time + 20.minutes
+    puts "#{time.strftime('%H:%M')}〜#{after_time.strftime('%H:%M')} #{band}"
     @time = after_time
   end
 
