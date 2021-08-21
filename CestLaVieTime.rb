@@ -1,14 +1,26 @@
 require 'active_support/time'
 
 class TimeTable
-  attr_reader :time, :band
+  attr_reader :time, :bands
 
   def initialize(band_number)
     @time = Time.local(2021, 8, 26, 13, 00)
-    @band = Array.new(band_number).map.with_index(1){ |_, index| "バンド#{index}"}
+    @bands = Array.new(band_number).map.with_index(1){ |_, index| "バンド#{index}"}
   end
 
   def output
+  bands.reverse.each.with_index(1) { |band, index|
+    puts "#{start.strftime('%H:%M')}〜#{rehear_band(start).strftime('%H:%M')} #{band}"
+    start += 20.minutes
+    if index == bands.size
+      break
+    elsif kanki == 2
+      kanki = 0
+      puts "#{start.strftime('%H:%M')}〜#{rehear_kanki(start).strftime('%H:%M')} <換気>"
+      start += 5.minutes
+    end
+    kanki += 1
+  }
     p band
     p time
     play_rehearsal
