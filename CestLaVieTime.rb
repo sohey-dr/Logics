@@ -1,14 +1,15 @@
 require 'active_support/time'
 
 class TimeTable
-  attr_reader :time
+  attr_reader :time, :band_number
 
   def initialize(band_number)
     @time = Time.local(2021, 8, 26, 13, 00)
-    @band_number = band_number
+    @band = Array.new(band_number).map.with_index(1){ |_, index| "バンド#{index}"}
   end
 
   def output
+    p band_number
     p time
     play_rehearsal
     p time
