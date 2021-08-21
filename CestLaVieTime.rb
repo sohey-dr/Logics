@@ -3,8 +3,9 @@ require 'active_support/time'
 class TimeTable
   attr_reader :time
 
-  def initialize
+  def initialize(band_number)
     @time = Time.local(2021, 8, 26, 13, 00)
+    @band_number = band_number
   end
 
   def output
@@ -25,7 +26,7 @@ class TimeTable
 end
 
 puts "バンド数を入力してください"
-TimeTable.new.output
+TimeTable.new(gets.to_i).output
 
 
 # class TimeTable
