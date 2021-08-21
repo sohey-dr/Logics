@@ -64,7 +64,7 @@ class TimeTable
 
     bands.each.with_index(1) { |band, index|
       puts "#{start.strftime('%H:%M')}〜#{honban_band(start).strftime('%H:%M')} #{band}"
-      start += 15.minutes
+      start += 20.minutes
       
       # if lunch == false && start > Time.local(2021,03,20,12,10)
       #   lunch = true
@@ -87,7 +87,7 @@ class TimeTable
 
     start += 35.minutes
     puts "完パケ#{start.strftime('%H:%M')}"
-    puts "※換気・転換10分 本番15分"
+    puts "※換気・転換10分 本番20分"
   end
 
   def rehear_band(start)
@@ -99,7 +99,7 @@ class TimeTable
   end
 
   def honban_band(start)
-    start + 15.minutes
+    start + 20.minutes
   end
 
   def honban_kanki(start)
