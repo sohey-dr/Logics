@@ -19,6 +19,8 @@ class TimeTable
       play_rehearsal(band)
       if index == bands.size
         break
+      elsif index % 3 == 0
+        ventilation
       end
     }
   end
@@ -30,6 +32,12 @@ class TimeTable
 
   def play
     @time += 20.minutes
+  end
+
+  def ventilation
+    after_time = time + 5.minutes
+    puts "#{time.strftime('%H:%M')}〜#{after_time.strftime('%H:%M')} <換気>"
+    @time = after_time
   end
 end
 
