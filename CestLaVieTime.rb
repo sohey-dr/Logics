@@ -21,6 +21,8 @@ class TimeTable
         break
       elsif index % 3 == 0
         ventilation
+      else
+        convert
       end
     }
   end
@@ -39,6 +41,10 @@ class TimeTable
     after_time = time + 5.minutes
     puts "#{time.strftime('%H:%M')}〜#{after_time.strftime('%H:%M')} <換気>"
     @time = after_time
+  end
+
+  def convert
+    @time += 5.minutes
   end
 end
 
