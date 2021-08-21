@@ -46,19 +46,19 @@ class TimeTable
 
     bands.reverse.each.with_index(1) { |band, index|
       puts "#{start.strftime('%H:%M')}〜#{rehear_band(start).strftime('%H:%M')} #{band}"
-      start += 15.minutes
-      # if index == bands.size
-      #   break
-      # elsif kanki == 3
-      #   kanki = 0
-      #   puts "#{start.strftime('%H:%M')}〜#{rehear_kanki(start).strftime('%H:%M')} <換気>"
-      #   start += 5.minutes 
-      # end
+      start += 20.minutes
+      if index == bands.size
+        break
+      elsif kanki == 2
+        kanki = 0
+        puts "#{start.strftime('%H:%M')}〜#{rehear_kanki(start).strftime('%H:%M')} <換気>"
+        start += 5.minutes 
+      end
       kanki += 1
     }
 
     puts "#{start.strftime('%H:%M')} ＼＼＼\\顔合わせ//／／／"
-    start += 10.minutes
+    start += 20.minutes
     puts "START  [[[   #{start.strftime('%H:%M')}   ]]]"
     kanki = 1
 
@@ -73,22 +73,21 @@ class TimeTable
       #   kanki = 0
       # end
 
-      # if index == bands.size
-      #   break
-      # elsif kanki == 3
-      #   kanki = 0
-      #   puts "#{start.strftime('%H:%M')}〜#{honban_kanki(start).strftime('%H:%M')} <換気>"
-      #   start += 10.minutes 
-      # else
-      #   start += 10.minutes
-      # end
-      start += 10.minutes
+      if index == bands.size
+        break
+      elsif kanki == 2
+        kanki = 0
+        puts "#{start.strftime('%H:%M')}〜#{honban_kanki(start).strftime('%H:%M')} <換気>"
+        start += 10.minutes 
+      else
+        start += 10.minutes
+      end
       kanki += 1
     }
 
     start += 35.minutes
     puts "完パケ#{start.strftime('%H:%M')}"
-    puts "※換気・転換10分 本番15分"
+    puts "※換気・転換10分 本番20分"
   end
 
   def rehear_band(start)
