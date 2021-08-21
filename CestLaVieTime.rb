@@ -9,28 +9,23 @@ class TimeTable
   end
 
   def output
-  bands.reverse.each.with_index(1) { |band, index|
-    puts "#{start.strftime('%H:%M')}〜#{rehear_band(start).strftime('%H:%M')} #{band}"
-    start += 20.minutes
-    if index == bands.size
-      break
-    elsif kanki == 2
-      kanki = 0
-      puts "#{start.strftime('%H:%M')}〜#{rehear_kanki(start).strftime('%H:%M')} <換気>"
-      start += 5.minutes
-    end
-    kanki += 1
-  }
-    p band
-    p time
-    play_rehearsal
-    p time
+    rehearsal
   end
 
   private
 
-  def play_rehearsal
-    @time += 15.minutes
+  def rehearsal
+    bands.reverse.each.with_index(1) { |band, index|
+      play_rehearsal(band)
+      if index == bands.size
+        break
+      end
+    }
+  end
+
+  def play_rehearsal(band)
+    puts "#{time.strftime('%H:%M')}〜#{(time + 20.minutes).strftime('%H:%M')} #{band}"
+    @time += 20.minutes
   end
 
   def play
