@@ -7,7 +7,7 @@ class TimeTable
     @time = Time.local(2021, 8, 26, 13, 00)
   end
 
-  def run
+  def output
     p time
     play_rehearsal
     p time
@@ -25,7 +25,7 @@ class TimeTable
 end
 
 puts "バンド数を入力してください"
-TimeTable.new.run
+TimeTable.new.output
 
 
 # class TimeTable
