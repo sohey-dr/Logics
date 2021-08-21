@@ -26,8 +26,9 @@ class TimeTable
   end
 
   def play_rehearsal(band)
-    puts "#{time.strftime('%H:%M')}〜#{(time + 20.minutes).strftime('%H:%M')} #{band}"
-    @time += 20.minutes
+    after_time = time + 20.minutes
+    puts "#{time.strftime('%H:%M')}〜#{after_time.strftime('%H:%M')} #{band}"
+    @time = after_time
   end
 
   def play
