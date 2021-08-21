@@ -1,7 +1,7 @@
 require 'active_support/time'
 
 class TimeTable
-  attr_reader :time, :band_number
+  attr_reader :time, :band
 
   def initialize(band_number)
     @time = Time.local(2021, 8, 26, 13, 00)
@@ -9,7 +9,7 @@ class TimeTable
   end
 
   def output
-    p band_number
+    p band
     p time
     play_rehearsal
     p time
