@@ -3,8 +3,8 @@ require 'active_support/time'
 class TimeTable
   attr_reader :time, :bands
 
-  def initialize(band_number)
-    @time = Time.local(2021, 8, 26, 13, 00)
+  def initialize(hour, band_number)
+    @time = Time.local(2021, 8, 26, hour, 00)
 
     # バンドの配列作成 ex) ["バンド1", "バンド2", "バンド3", "バンド4", "バンド5"]
     @bands = Array.new(band_number).map.with_index(1){ |_, index| "バンド#{index}"}
@@ -74,4 +74,4 @@ class TimeTable
 end
 
 puts "バンド数を入力してください"
-TimeTable.new(gets.to_i).output
+TimeTable.new(13, gets.to_i).output
