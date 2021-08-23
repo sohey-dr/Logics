@@ -7,15 +7,11 @@ function doPost(r) {
   const params = JSON.parse(r.postData.getDataAsString());
   if (params.challenge) {
     return params.challenge;
+  } else if (params.event.type !== "team_join") {
+    return JSON.stringify({ message: "Not Team Join" });
   }
 
-  const eventType = params.event.type;
-
-  sheet.getRange("A1").setValue(eventType);
-
-  let output = ContentService.createTextOutput();
-  output.setMimeType(ContentService.MimeType.JSON);
-  output.setContent(JSON.stringify({ message: "success!" }));
+  let pastNumber = sheet.getRange("B1").getValue();
 
   return output
 }
