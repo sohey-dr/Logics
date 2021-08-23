@@ -5,13 +5,15 @@ function doPost(r) {
   const sheet = spreadSheet.getSheetByName("シート1");
 
   const params = JSON.parse(r.postData.getDataAsString());
+
   if (params.challenge) {
     return params.challenge;
   } else if (params.event.type !== "team_join") {
     return JSON.stringify({ message: "Not Team Join" });
   }
 
-  let pastNumber = sheet.getRange("B1").getValue();
+  const targetCell = sheet.getRange("B1");
+  targetCell.setValue(Number(targetCell.getValue()) + 1);
 
-  return output
+  return;
 }
