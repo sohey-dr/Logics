@@ -5,6 +5,10 @@ function doPost(r) {
   const sheet = spreadSheet.getSheetByName("シート1");
 
   const params = JSON.parse(r.postData.getDataAsString());
+  if (params.challenge) {
+    return params.challenge;
+  }
+
   const eventType = params.event.type;
 
   sheet.getRange("A1").setValue(eventType);
