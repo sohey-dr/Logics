@@ -11,11 +11,26 @@ function doPost(r) {
       JSON.stringify(contents.challenge)
     ).setMimeType(ContentService.MimeType.TEXT);
   } else if (params.event.type !== "team_join") {
-    return JSON.stringify({ message: "Not Team Join" });
+    const date = new Date();
+    const today = Utilities.formatDate(date, "Asia/Tokyo", "MM/dd");
+
+    let targetCell = null;
+    const lastRow = sheet.getRange(sheet.getLastRow(), 1);
+    const lastRowDate = Utilities.formatDate(
+      new Date(lastRow.getValue()),
+      "Asia/Tokyo",
+      "MM/dd"
+    );
+
+    if (today === lastRowDate) {
+      targetCell = lastRow.offset(0, 1);
+    } else {
+      lastRow.offset(1, 0).setValue(today);
+      targetCell = lastRow.offset(1, 1);
+    }
+
+    targetCell.setValue(targetCell.getValue() + 1);
+
+    return null;
   }
-
-  const targetCell = sheet.getRange("B1");
-  targetCell.setValue(Number(targetCell.getValue()) + 1);
-
-  return;
 }
