@@ -9,5 +9,9 @@ function doPost(r) {
 
   sheet.getRange("A1").setValue(eventType);
 
-  // return {"data": eventType}
+  let output = ContentService.createTextOutput();
+  output.setMimeType(ContentService.MimeType.JSON);
+  output.setContent(JSON.stringify({ message: "success!" }));
+
+  return output
 }
