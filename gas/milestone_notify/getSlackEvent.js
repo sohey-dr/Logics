@@ -40,8 +40,6 @@ function run() {
     "1P_X5ghsn2VBKgkUItgYNZkGc3VSz5vnOcgKgTMXhPow"
   );
   const sheet = spreadSheet.getSheetByName("シート1");
-  const date = new Date();
-  const today = Utilities.formatDate(date, "Asia/Tokyo", "MM/dd");
 
   let todayNumber = sheet.getRange(sheet.getLastRow(), 2).getValue();
   if (todayNumber === null) {
