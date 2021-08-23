@@ -4,10 +4,12 @@ function doPost(r) {
   );
   const sheet = spreadSheet.getSheetByName("シート1");
 
-  const params = JSON.parse(r.postData.getDataAsString());
+  const params = JSON.parse(r.postData.contents);
 
-  if (params.challenge) {
-    return params.challenge;
+  if (params.type == "url_verification") {
+    return ContentService.createTextOutput(
+      JSON.stringify(contents.challenge)
+    ).setMimeType(ContentService.MimeType.TEXT);
   } else if (params.event.type !== "team_join") {
     return JSON.stringify({ message: "Not Team Join" });
   }
