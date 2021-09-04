@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -26,13 +27,8 @@ func headerComma(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	//サーバを作り、各ハンドラ関数をハンドルする
-	server := http.Server{
-		Addr: "127.0.0.1:8080",
-	}
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/header", header)
 	http.HandleFunc("/headerComma", headerComma)
-	fmt.Println("Start Server")
-	server.ListenAndServe()
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
