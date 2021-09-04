@@ -16,7 +16,7 @@ func headers(w http.ResponseWriter, r *http.Request) {
 func header(w http.ResponseWriter, r *http.Request) {
 	//要素「Accept-Encoding」を取得
 	h := r.Header["Accept-Encoding"]
-	fmt.Fprintln(w, h)
+	fmt.Fprintln(w, h[0])
 }
 
 // ヘッダから特定の要素を、カンマ区切りで取得する例
