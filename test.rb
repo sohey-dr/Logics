@@ -1,13 +1,13 @@
-require 'csv'
+require "net/http"
 
-rows = CSV.read("slack/tech_bowl/users(registered_slack_id).csv")
+uri = URI.parse("https://k7qropickw.summer2021.dena.jp/channels/6834/messages")
+response = Net::HTTP.get_response(uri)
 
-users = rows.select do |row|
-  row[7] != nil
-end
+response.code # status code
+body = response.body
+i = 0
 
-CSV.open("slack/tech_bowl/users(registered_slack_id).csv", "w") do |csv|
-  users.each do |user|
-    csv << user
-  end
+body.each do |b|
+  i += 1
+  b
 end
