@@ -1,6 +1,6 @@
-# フィッシャー–イェーツ
+// フィッシャー–イェーツ
 
-# 配列の要素はいくつか
+// 配列の要素はいくつか
 array_num = 3;
 
 let hosts_num_array = Array.from(new Array(array_num)).map((v,i) => i)
