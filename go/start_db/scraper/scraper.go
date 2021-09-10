@@ -7,6 +7,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
+// カテゴリごとの企業一覧ページのリンクを返す
 func GetCatgoryUrls() ([]string, error) {
 	res, err := http.Get("https://startup-db.com/tags")
 	if err != nil {
@@ -27,6 +28,7 @@ func GetCatgoryUrls() ([]string, error) {
 	return urls, nil
 }
 
+// 企業一覧ページから企業詳細ページのリンクを取得する
 func GetComUrlByList(url string) ([]string, error){
 	res, err := http.Get(url)
 	if err != nil {
