@@ -1,7 +1,6 @@
 package scraper
 
 import (
-	"fmt"
 	"log"
 	"net/http"
  
