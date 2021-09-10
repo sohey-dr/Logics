@@ -12,7 +12,6 @@ func GetCatgoryUrls() ([]string, error) {
 	res, err := http.Get("https://startup-db.com/tags")
 	if err != nil {
 		log.Println(err)
-
 		return nil, err
 	}
 	defer res.Body.Close()
@@ -30,17 +29,23 @@ func GetCatgoryUrls() ([]string, error) {
 	return urls, nil
 }
 
-func GetComUrlByList()  {
-	res, err := http.Get("https://startup-db.com/tags/cloud-funding")
+func GetComUrlByList(url string) ([]string, error){
+	res, err := http.Get(url)
 	if err != nil {
 		log.Println(err)
+		return nil, err
 	}
 	defer res.Body.Close()
 
+	var nextUrls []string
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 	doc.Find(".CompanyCard > a").Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Attr("href")
-		var next_url string = `"https://startup-db.com` + href + `",`
-		fmt.Println(next_url)
+		var nextUrl string = `"https://startup-db.com` + href + `",`
+		fmt.Println(nextUrl)
+
+		nextUrls = append(nextUrls, nextUrl)
 	})
+
+	return nextUrls, nil
 }
