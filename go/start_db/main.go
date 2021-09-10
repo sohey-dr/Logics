@@ -5,6 +5,8 @@ import (
 )
 
 func main() {
-	// scraper.GetCatgoryUrls()
-	scraper.GetComUrlByList()
+	urls, _ := scraper.GetCatgoryUrls()
+	for _, url := range urls {
+		scraper.GetComUrlByList(url)	
+	}
 }
