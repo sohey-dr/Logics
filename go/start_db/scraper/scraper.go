@@ -15,12 +15,17 @@ func GetCatgoryUrls() []string {
 	}
 	defer res.Body.Close()
 
+	var urls []string
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 	doc.Find(".tag-children-ul > li > a").Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Attr("href")
-		var next_url string = `"https://startup-db.com` + href + `",`
-		fmt.Println(next_url)
+		var url string = `"https://startup-db.com` + href + `",`
+		fmt.Println(url)
+
+		urls = append(urls, url)
 	})
+
+	return urls
 }
 
 func GetComUrlByList()  {
