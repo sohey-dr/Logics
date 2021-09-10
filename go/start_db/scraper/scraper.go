@@ -21,7 +21,6 @@ func GetCatgoryUrls() ([]string, error) {
 	doc.Find(".tag-children-ul > li > a").Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Attr("href")
 		var url string = `"https://startup-db.com` + href + `",`
-		fmt.Println(url)
 
 		urls = append(urls, url)
 	})
@@ -42,7 +41,6 @@ func GetComUrlByList(url string) ([]string, error){
 	doc.Find(".CompanyCard > a").Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Attr("href")
 		var nextUrl string = `"https://startup-db.com` + href + `",`
-		fmt.Println(nextUrl)
 
 		nextUrls = append(nextUrls, nextUrl)
 	})
