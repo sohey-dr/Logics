@@ -8,7 +8,7 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func GetCatgoryUrls()  {
+func GetCatgoryUrls() []string {
 	res, err := http.Get("https://startup-db.com/tags")
 	if err != nil {
 		log.Println(err)
