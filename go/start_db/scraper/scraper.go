@@ -8,10 +8,12 @@ import (
 	"github.com/PuerkitoBio/goquery"
 )
 
-func GetCatgoryUrls() []string {
+func GetCatgoryUrls() ([]string, error) {
 	res, err := http.Get("https://startup-db.com/tags")
 	if err != nil {
 		log.Println(err)
+
+		return nil, err
 	}
 	defer res.Body.Close()
 
@@ -25,7 +27,7 @@ func GetCatgoryUrls() []string {
 		urls = append(urls, url)
 	})
 
-	return urls
+	return urls, nil
 }
 
 func GetComUrlByList()  {
