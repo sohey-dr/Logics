@@ -24,6 +24,24 @@ func WriteCompanyUrls(records [][]string) {
 	}
 }
 
+// WriteCompanyInfos 二次元配列から企業詳細ページのリンクをCSVに書き込む
+func WriteCompanyInfos(records []string) {
+	file, err := os.OpenFile("CompanyInfos.csv", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	w := csv.NewWriter(file)
+	defer w.Flush()
+
+	w.Write(records)
+
+	if err := w.Error(); err != nil {
+		log.Fatalln("error writing csv:", err)
+	}
+}
+
 func ReadCompanyUrls() []string {
 	file, err := os.Open("companyUrls.csv")
 	if err != nil {
