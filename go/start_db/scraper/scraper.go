@@ -48,3 +48,43 @@ func GetComUrlByList(url string) ([]string, error) {
 
 	return nextUrls, nil
 }
+
+// GetCompanyInfo 企業詳細ページから企業情報を取得
+func GetCompanyInfo(url string) map[string]string {
+	res, err := http.Get(url)
+	if err != nil {
+		log.Println(err)
+	}
+	defer res.Body.Close()
+
+	doc, _ := goquery.NewDocumentFromReader(res.Body)
+
+	contents := make(map[string]string)
+	doc.Find(".section-overview > dl > dd").Each(func(i int, s *goquery.Selection) {
+		text := s.Text()
+		switch i {
+		case 0:
+			contents["企業名"] = text
+		case 1:
+			contents["会社HP"] = text
+		case 2:
+			contents["設立年数"] = text
+		case 3:
+			contents["従業員数"] = text
+		case 5:
+			contents["住所"] = text
+		}
+	})
+
+	doc.Find(".section-intro > p").Each(func(i int, s *goquery.Selection) {
+		text := s.Text()
+		contents["事業内容"] = text
+	})
+
+	doc.Find(".funding-dl > dd > .SdbTextAmount > span").Each(func(i int, s *goquery.Selection) {
+		text := s.Text()
+		contents["資金調達額"] = text
+	})
+
+	return contents
+}
