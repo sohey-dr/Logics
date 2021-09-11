@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"start_db/csv"
 	"start_db/proxy"
 	"start_db/scraper"
