@@ -2,6 +2,7 @@ package csv
 
 import (
 	"encoding/csv"
+	"io"
 	"log"
 	"os"
 )
@@ -21,4 +22,27 @@ func WriteCompanyUrls(records [][]string) {
 	if err := w.Error(); err != nil {
 		log.Fatalln("error writing csv:", err)
 	}
+}
+
+func ReadCompanyUrls() []string {
+	file, err := os.Open("companyUrls.csv")
+	if err != nil {
+		panic(err)
+	}
+	r := csv.NewReader(file)
+
+	var urls []string
+	// CSVの内容を1行ずつ読み取る
+	for {
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+		urls = append(urls, record[1])
+	}
+
+	return urls
 }
