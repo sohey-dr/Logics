@@ -76,5 +76,15 @@ func GetCompanyInfo(url string) map[string]string {
 		}
 	})
 
+	doc.Find(".section-intro > p").Each(func(i int, s *goquery.Selection) {
+		text := s.Text()
+		contents["事業内容"] = text
+	})
+
+	doc.Find(".funding-dl > dd > .SdbTextAmount > span").Each(func(i int, s *goquery.Selection) {
+		text := s.Text()
+		contents["資金調達額"] = text
+	})
+
 	return contents
 }
