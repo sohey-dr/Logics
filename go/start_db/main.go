@@ -2,14 +2,18 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	"time"
-
 	"start_db/csv"
 	"start_db/scraper"
+	"strconv"
+	"time"
 )
 
 func main() {
+
+}
+
+// 企業詳細ページ取得までの一連の処理
+func outputCompanyUrlsCSV() {
 	categoryUrls, _ := scraper.GetCategoryUrls()
 
 	var companyUrls []string
