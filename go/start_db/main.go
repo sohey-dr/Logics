@@ -10,12 +10,11 @@ import (
 )
 
 func main() {
-	categoryUrls, _ := scraper.GetCatgoryUrls()
+	categoryUrls, _ := scraper.GetCategoryUrls()
 
-	companyUrls := [][]string{{}}
-
-	for i, categoryUrl := range categoryUrls {
-		time.Sleep(time.Second * 10)
+	var companyUrls []string
+	for _, categoryUrl := range categoryUrls {
+		time.Sleep(time.Second * 7)
 
 		fmt.Println("再開します")
 		companyUrlsInList, _ := scraper.GetComUrlByList(categoryUrl)
