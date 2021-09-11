@@ -11,8 +11,8 @@ import (
 
 var proxies = []string{"13.114.181.4:80", "35.76.99.107:80"}
 
-// SetProxyUrl プロキシサーバーのURLをhttpパッケージにセットする
-func SetProxyUrl(i int) {
+// SetProxy プロキシサーバーのURLをhttpパッケージにセットする
+func SetProxy(i int) {
 	err := godotenv.Load(fmt.Sprintf("./%s.env", os.Getenv("GO_ENV")))
 	if err != nil {
 		log.Println(err)
@@ -22,7 +22,6 @@ func SetProxyUrl(i int) {
 	proxyPass := os.Getenv("PROXY_PASS")
 
 	Url := `http://` + proxyUser + `:` + proxyPass + `@` + proxies[i]
-	log.Println(Url)
 
 	proxyUrl, _ := url.Parse(Url)
 	http.DefaultTransport = &http.Transport{
