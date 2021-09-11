@@ -3,13 +3,14 @@ package main
 import (
 	"fmt"
 	"start_db/csv"
+	"start_db/proxy"
 	"start_db/scraper"
 	"strconv"
 	"time"
 )
 
 func main() {
-
+	outputCompanyInfo()
 }
 
 // 企業詳細ページ取得までの一連の処理
@@ -33,4 +34,30 @@ func outputCompanyUrlsCSV() {
 	}
 
 	csv.WriteCompanyUrls(records)
+}
+
+// CSVから企業詳細ページのリンクを取得しそのページから情報を取得
+func outputCompanyInfo() {
+	companyUrls := csv.ReadCompanyUrls()
+	for i, companyUrl := range companyUrls {
+		time.Sleep(time.Second * 4)
+
+		//NOTE: プロキシサーバーが2つの場合で対応しているため2の余りを渡している
+		proxy.SetProxy(i % 2)
+
+		companyInfoMap := scraper.GetCompanyInfo(companyUrl)
+
+		// NOTE: 順番を揃えるためにスライスに書き換えている
+		companyInfoSlice := []string{
+			companyInfoMap["企業名"],
+			companyInfoMap["設立年数"],
+			companyInfoMap["資金調達額"],
+			companyInfoMap["事業内容"],
+			companyInfoMap["住所"],
+			companyInfoMap["従業員数"],
+			companyInfoMap["会社HP"],
+		}
+		csv.WriteCompanyInfos(companyInfoSlice)
+		log.Println(companyUrl)
+	}
 }
