@@ -6,6 +6,7 @@ import (
 	"os"
 )
 
+// WriteCompanyUrls 二次元配列から企業詳細ページのリンクをCSVに書き込む
 func WriteCompanyUrls(records [][]string) {
 	file, err := os.Create("companyUrls.csv")
 	if err != nil {
