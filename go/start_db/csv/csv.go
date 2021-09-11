@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func Write(records [][]string) {
+func WriteCompanyUrls(records [][]string) {
 	file, err := os.Create("companyUrls.csv")
 	if err != nil {
 		panic(err)

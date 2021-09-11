@@ -28,5 +28,5 @@ func main() {
 		records = append(records, record)
 	}
 
-	csv.Write(records)
+	csv.WriteCompanyUrls(records)
 }
