@@ -31,7 +31,7 @@ func SearchTelNumber(url, address string) string {
 		}
 
 		re := regexp.MustCompile(`(\d{2,4})-(\d{2,4})-(\d{4})`)
-		if re.MatchString(text) {
+		if existsAddress && re.MatchString(text) {
 			telNumber = text
 		}
 	})
