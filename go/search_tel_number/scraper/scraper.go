@@ -15,7 +15,6 @@ func SearchTelNumber(url, address string) {
 	if err != nil {
 		log.Println(err)
 	}
-	defer res.Body.Close()
 
 	fmt.Println("探しましょう")
 	existsAddress := false
@@ -25,7 +24,7 @@ func SearchTelNumber(url, address string) {
 	doc.Find("span").Each(func(i int, s *goquery.Selection) {
 		text := s.Text()
 
-		// NOTE: 郵便番号と一致する文字列がspanで見つかったらexistsAddressがtrueを返す
+		// NOTE: 郵便番号が一致する文字列がspanで見つかったらexistsAddressがtrueを返す
 		// ex. address == "〒600-8118 京都府京都市下京区平居町５８番地 本池中 UNKNOWN"
 		if strings.HasPrefix(text, address[:11]) {
 			existsAddress = true
