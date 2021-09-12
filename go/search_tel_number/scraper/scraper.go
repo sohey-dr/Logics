@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"regexp"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery"
@@ -16,7 +17,6 @@ func SearchTelNumber(url, address string) {
 		log.Println(err)
 	}
 
-	fmt.Println("探しましょう")
 	existsAddress := false
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 
@@ -26,8 +26,15 @@ func SearchTelNumber(url, address string) {
 
 		// NOTE: 郵便番号が一致する文字列がspanで見つかったらexistsAddressがtrueを返す
 		// ex. address == "〒600-8118 京都府京都市下京区平居町５８番地 本池中 UNKNOWN"
-		if strings.HasPrefix(text, address[:11]) {
+		if !existsAddress && strings.HasPrefix(text, address[:11]) {
 			existsAddress = true
+			fmt.Println(existsAddress)
+		}
+
+		re := regexp.MustCompile(`(\d{2,4})-(\d{2,4})-(\d{4})`)
+		if re.MatchString(text) {
+			number := text
+			fmt.Println(number)
 		}
 	})
 }
