@@ -18,6 +18,8 @@ func SearchTelNumber(url string) {
 
 	fmt.Println("探しましょう")
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
+
+	// NOTE: 要素が変わることがあるため広いspanタグで指定している
 	doc.Find("span").Each(func(i int, s *goquery.Selection) {
 		text := s.Text()
 		fmt.Println(text)
