@@ -1,9 +1,16 @@
 package main
 
-import "search_tel_number/scraper"
+import (
+	"fmt"
+	"search_tel_number/scraper"
+	"strings"
+)
 
 func main() {
 	address := "〒600-8118 京都府京都市下京区平居町５８番地 本池中 UNKNOWN"
+	companyName := "Credo Ship."
+	companyNameRemoveSpase := strings.Replace(companyName, " ", "", 1)
+	url := "https://www.google.com/search?q=" + companyNameRemoveSpase
 
-	scraper.SearchTelNumber("https://www.google.com/search?q=株式会社CredoShip.", address)
+	fmt.Println(scraper.SearchTelNumber(url, address))
 }
