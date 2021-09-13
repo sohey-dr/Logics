@@ -65,6 +65,10 @@ func outputCompanyInfo() {
 
 // CSVから企業名、住所を取得してそこから電話番号を探して出た場合は企業名と電話番号を返す
 func searchTelNumber() {
-	//	TODO:プライベートパッケージを読み取って動かす
-
+	companyInfos := csv.ReadCompanyInfos()
+	for _, companyInfo := range companyInfos {
+		companyNameRemoveSpace := strings.Replace(companyInfo["社名"], " ", "", 1)
+		url := "https://www.google.com/search?q=" + companyNameRemoveSpace
+		scraper.SearchTelNumber(url, companyInfo["住所"])
+	}
 }
