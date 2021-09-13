@@ -7,6 +7,7 @@ import (
 	"github.com/sohey-dr/Logics/go/start_db/scraper"
 	"log"
 	"strconv"
+	"strings"
 	"time"
 )
 
