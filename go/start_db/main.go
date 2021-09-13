@@ -68,6 +68,12 @@ func outputCompanyInfo() {
 func searchTelNumber() {
 	companyInfos := csv.ReadCompanyInfos()
 	for _, companyInfo := range companyInfos {
+		// サイト内で住所が空の場合は — となっている
+		if companyInfo["住所"] == "—" {
+			fmt.Printf("社名: %s なし \n", companyInfo["社名"])
+			continue
+		}
+
 		time.Sleep(time.Second * 4)
 
 		companyNameRemoveSpace := strings.Replace(companyInfo["社名"], " ", "", 1)
