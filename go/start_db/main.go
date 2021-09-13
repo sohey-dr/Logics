@@ -71,6 +71,12 @@ func searchTelNumber() {
 
 		companyNameRemoveSpace := strings.Replace(companyInfo["社名"], " ", "", 1)
 		url := "https://www.google.com/search?q=" + companyNameRemoveSpace
-		scraper.SearchTelNumber(url, companyInfo["住所"])
+		telNum := scraper.SearchTelNumber(url, companyInfo["住所"])
+
+		if telNum != "" {
+			fmt.Printf("社名: %s, 電話番号: %s \n", companyInfo["社名"], telNum)
+		} else {
+			fmt.Printf("社名: %s なし \n", companyInfo["社名"])
+		}
 	}
 }
