@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/sohey-dr/Logics/go/start_db/csv"
+	"github.com/sohey-dr/Logics/go/start_db/proxy"
+	"github.com/sohey-dr/Logics/go/start_db/scraper"
 	"log"
-	"start_db/csv"
-	"start_db/proxy"
-	"start_db/scraper"
 	"strconv"
 	"time"
 )
@@ -61,4 +61,9 @@ func outputCompanyInfo() {
 		csv.WriteCompanyInfos(companyInfoSlice)
 		log.Println(companyUrl)
 	}
+}
+
+func searchTelNumber() {
+	//	TODO:プライベートパッケージを読み取って動かす
+
 }
