@@ -42,6 +42,7 @@ func WriteCompanyInfos(records []string) {
 	}
 }
 
+// ReadCompanyUrls companyUrls.csvからターゲットとなるurlを取得してスライスを返す
 func ReadCompanyUrls() []string {
 	file, err := os.Open("companyUrls.csv")
 	if err != nil {
@@ -63,4 +64,30 @@ func ReadCompanyUrls() []string {
 	}
 
 	return urls
+}
+
+// ReadCompanyInfos duplicateDeletedCompanyInfos.csvからターゲットとなる社名と住所を取得してmapを返す
+func ReadCompanyInfos() []map[string]string {
+	file, err := os.Open("duplicateDeletedCompanyInfos.csv")
+	if err != nil {
+		panic(err)
+	}
+	r := csv.NewReader(file)
+
+	var companyInfos []map[string]string
+	// CSVの内容を1行ずつ読み取る
+	for {
+		record, err := r.Read()
+		if err == io.EOF {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+		var companyInfo = map[string]string{"社名": record[0], "住所": record[4]}
+
+		companyInfos = append(companyInfos, companyInfo)
+	}
+
+	return companyInfos
 }

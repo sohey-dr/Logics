@@ -1,4 +1,4 @@
-module start_db
+module github.com/sohey-dr/Logics/go/start_db
 
 go 1.16
 
