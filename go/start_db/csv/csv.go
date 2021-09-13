@@ -42,6 +42,7 @@ func WriteCompanyInfos(records []string) {
 	}
 }
 
+// ReadCompanyUrls companyUrls.csvからターゲットとなるurlを取得してスライスを返す
 func ReadCompanyUrls() []string {
 	file, err := os.Open("companyUrls.csv")
 	if err != nil {
