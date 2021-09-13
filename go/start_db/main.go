@@ -63,6 +63,7 @@ func outputCompanyInfo() {
 	}
 }
 
+// CSVから企業名、住所を取得してそこから電話番号を探して出た場合は企業名と電話番号を返す
 func searchTelNumber() {
 	//	TODO:プライベートパッケージを読み取って動かす
 
