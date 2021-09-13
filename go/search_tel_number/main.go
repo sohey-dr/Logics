@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"search_tel_number/scraper"
+	"github.com/sohey-dr/Logics/go/search_tel_number/scraper"
 	"strings"
 )
 

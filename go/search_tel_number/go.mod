@@ -1,4 +1,4 @@
-module search_tel_number
+module github.com/sohey-dr/Logics/go/search_tel_number
 
 go 1.16
 
