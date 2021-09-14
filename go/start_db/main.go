@@ -66,24 +66,5 @@ func outputCompanyInfo() {
 
 // CSVから企業名、住所を取得してそこから電話番号を探して出た場合は企業名と電話番号を返す
 func searchTelNumber() {
-	companyInfos := csv.ReadCompanyInfos()
-	for _, companyInfo := range companyInfos {
-		// サイト内で住所が空の場合は — となっている
-		if companyInfo["住所"] == "—" {
-			fmt.Printf("社名: %s なし \n", companyInfo["社名"])
-			continue
-		}
-
-		time.Sleep(time.Second * 4)
-
-		companyNameRemoveSpace := strings.Replace(companyInfo["社名"], " ", "", 1)
-		url := "https://www.google.com/search?q=" + companyNameRemoveSpace
-		telNum := scraper.SearchTelNumber(url, companyInfo["住所"])
-
-		if telNum != "" {
-			fmt.Printf("社名: %s, 電話番号: %s \n", companyInfo["社名"], telNum)
-		} else {
-			fmt.Printf("社名: %s なし \n", companyInfo["社名"])
-		}
-	}
+	csv.ReadCompanyInfos()
 }
