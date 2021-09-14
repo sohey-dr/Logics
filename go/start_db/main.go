@@ -7,12 +7,11 @@ import (
 	"github.com/sohey-dr/Logics/go/start_db/scraper"
 	"log"
 	"strconv"
-	"strings"
 	"time"
 )
 
 func main() {
-	outputCompanyInfo()
+	searchTelNumber()
 }
 
 // 企業詳細ページ取得までの一連の処理
