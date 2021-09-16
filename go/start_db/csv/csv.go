@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-// WriteCompanyUrls 二次元配列から企業詳細ページのリンクをCSVに書き込む
+// WriteCompanyUrls 二次元配列から企業詳細ページのリンクとカテゴリ名をCSVに書き込む
 func WriteCompanyUrls(records [][]string) {
 	file, err := os.Create("companyUrls.csv")
 	if err != nil {
@@ -29,7 +29,7 @@ func WriteCompanyUrls(records [][]string) {
 	}
 }
 
-// WriteCompanyInfos 二次元配列から企業詳細ページのリンクをCSVに書き込む
+// WriteCompanyInfos 二次元配列から企業詳細ページの情報をCSVに書き込む
 func WriteCompanyInfos(records []string) {
 	file, err := os.OpenFile("CompanyInfos.csv", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
@@ -47,7 +47,7 @@ func WriteCompanyInfos(records []string) {
 	}
 }
 
-// WriteCompanyInfoAndTelNum 二次元配列から企業詳細ページのリンクをCSVに書き込む
+// WriteCompanyInfoAndTelNum 二次元配列からWriteCompanyInfosの返り値と電話番号を加えたものを書き込む
 func WriteCompanyInfoAndTelNum(record []string) {
 	file, err := os.OpenFile("CompanyInfoAndTelNum.csv", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
@@ -90,7 +90,7 @@ func ReadCompanyUrls() []map[string]string {
 	return urlAndCategoryNames
 }
 
-// ReadCompanyInfos duplicateDeletedCompanyInfos.csvからターゲットとなる社名と住所を取得してmapを返す
+// ReadCompanyInfos duplicateDeletedCompanyInfos.csvからターゲットとなる社名と住所を取得する
 func ReadCompanyInfos() {
 	file, err := os.Open("duplicateDeletedCompanyInfos.csv")
 	if err != nil {
