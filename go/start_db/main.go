@@ -48,14 +48,14 @@ func outputCompanyUrlsCSV() {
 
 // CSVから企業詳細ページのリンクを取得しそのページから情報を取得
 func outputCompanyInfo() {
-	companyUrls := csv.ReadCompanyUrls()
-	for i, companyUrl := range companyUrls {
+	companyUrlsAndNames := csv.ReadCompanyUrls()
+	for i, companyUrlsAndName := range companyUrlsAndNames {
 		time.Sleep(time.Second * 4)
 
 		//NOTE: プロキシサーバーが2つの場合で対応しているため2の余りを渡している
 		proxy.SetProxy(i % 2)
 
-		companyInfoMap := scraper.GetCompanyInfo(companyUrl)
+		companyInfoMap := scraper.GetCompanyInfo(companyUrlsAndName["url"])
 
 		// NOTE: 順番を揃えるためにスライスに書き換えている
 		companyInfoSlice := []string{
@@ -72,7 +72,7 @@ func outputCompanyInfo() {
 			companyUrlsAndName["categoryName"],
 		}
 		csv.WriteCompanyInfos(companyInfoSlice)
-		log.Println(companyUrl)
+		log.Println(companyInfoSlice)
 	}
 }
 
