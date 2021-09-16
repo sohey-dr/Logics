@@ -66,6 +66,10 @@ func outputCompanyInfo() {
 			companyInfoMap["住所"],
 			companyInfoMap["従業員数"],
 			companyInfoMap["会社HP"],
+			companyInfoMap["代表名"],
+			companyInfoMap["最新のプレスリリース日"],
+			companyInfoMap["最新の資金調達日"],
+			companyUrlsAndName["categoryName"],
 		}
 		csv.WriteCompanyInfos(companyInfoSlice)
 		log.Println(companyUrl)

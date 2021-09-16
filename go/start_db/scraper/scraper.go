@@ -22,7 +22,9 @@ func GetCategoryUrls() ([]string, error) {
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 	doc.Find(".tag-children-ul > li > a").Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Attr("href")
-		var url string = `https://startup-db.com` + href
+		categoryName := s.Text()
+
+		var url = map[string]string{"url": `https://startup-db.com` + href, "categoryName": categoryName}
 
 		urls = append(urls, url)
 	})
@@ -86,6 +88,27 @@ func GetCompanyInfo(url string) map[string]string {
 	doc.Find(".funding-dl > dd > .SdbTextAmount > span").Each(func(i int, s *goquery.Selection) {
 		text := s.Text()
 		contents["資金調達額"] = text
+	})
+
+	doc.Find(".SdbExternalLink > dl > dd > time").Each(func(i int, s *goquery.Selection) {
+		if i == 0 {
+			text := s.Text()
+			contents["最新のプレスリリース日"] = text
+		}
+	})
+
+	doc.Find(".FinanceFunding > div > table > tbody > tr > td").Each(func(i int, s *goquery.Selection) {
+		if i == 0 {
+			text := s.Text()
+			contents["最新の資金調達日"] = text
+		}
+	})
+
+	doc.Find(".member-info > h4").Each(func(i int, s *goquery.Selection) {
+		if i == 0 {
+			text := s.Text()
+			contents["代表名"] = text
+		}
 	})
 
 	return contents
