@@ -10,7 +10,7 @@ import (
 )
 
 // GetCategoryUrls カテゴリごとの企業一覧ページのリンクを返す
-func GetCategoryUrls() ([]string, error) {
+func GetCategoryUrls() ([]map[string]string, error) {
 	res, err := http.Get("https://startup-db.com/tags")
 	if err != nil {
 		log.Println(err)
@@ -18,7 +18,7 @@ func GetCategoryUrls() ([]string, error) {
 	}
 	defer res.Body.Close()
 
-	var urls []string
+	var urls []map[string]string
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 	doc.Find(".tag-children-ul > li > a").Each(func(i int, s *goquery.Selection) {
 		href, _ := s.Attr("href")
