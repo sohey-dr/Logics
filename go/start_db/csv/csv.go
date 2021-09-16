@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-// WriteCompanyUrls 二次元配列から企業詳細ページのリンクをCSVに書き込む
+// WriteCompanyUrls 二次元配列から企業詳細ページのリンクとカテゴリ名をCSVに書き込む
 func WriteCompanyUrls(records [][]string) {
 	file, err := os.Create("companyUrls.csv")
 	if err != nil {
@@ -29,7 +29,7 @@ func WriteCompanyUrls(records [][]string) {
 	}
 }
 
-// WriteCompanyInfos 二次元配列から企業詳細ページのリンクをCSVに書き込む
+// WriteCompanyInfos 二次元配列から企業詳細ページの情報をCSVに書き込む
 func WriteCompanyInfos(records []string) {
 	file, err := os.OpenFile("CompanyInfos.csv", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
@@ -47,7 +47,7 @@ func WriteCompanyInfos(records []string) {
 	}
 }
 
-// WriteCompanyInfoAndTelNum 二次元配列から企業詳細ページのリンクをCSVに書き込む
+// WriteCompanyInfoAndTelNum 二次元配列からWriteCompanyInfosの返り値と電話番号を加えたものを書き込む
 func WriteCompanyInfoAndTelNum(record []string) {
 	file, err := os.OpenFile("CompanyInfoAndTelNum.csv", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
 	if err != nil {
@@ -65,15 +65,15 @@ func WriteCompanyInfoAndTelNum(record []string) {
 	}
 }
 
-// ReadCompanyUrls companyUrls.csvからターゲットとなるurlを取得してスライスを返す
-func ReadCompanyUrls() []string {
+// ReadCompanyUrls companyUrls.csvからターゲットとなるurlを取得してマップの配列を返す
+func ReadCompanyUrls() []map[string]string {
 	file, err := os.Open("companyUrls.csv")
 	if err != nil {
 		panic(err)
 	}
 	r := csv.NewReader(file)
 
-	var urls []string
+	var urlAndCategoryNames []map[string]string
 	// CSVの内容を1行ずつ読み取る
 	for {
 		record, err := r.Read()
@@ -83,13 +83,14 @@ func ReadCompanyUrls() []string {
 		if err != nil {
 			log.Fatal(err)
 		}
-		urls = append(urls, record[1])
+		var urlAndCategoryName = map[string]string{"url": record[1], "categoryName": record[2]}
+		urlAndCategoryNames = append(urlAndCategoryNames, urlAndCategoryName)
 	}
 
-	return urls
+	return urlAndCategoryNames
 }
 
-// ReadCompanyInfos duplicateDeletedCompanyInfos.csvからターゲットとなる社名と住所を取得してmapを返す
+// ReadCompanyInfos duplicateDeletedCompanyInfos.csvからターゲットとなる社名と住所を取得する
 func ReadCompanyInfos() {
 	file, err := os.Open("duplicateDeletedCompanyInfos.csv")
 	if err != nil {

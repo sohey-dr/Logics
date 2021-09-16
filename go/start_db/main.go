@@ -18,19 +18,28 @@ func main() {
 func outputCompanyUrlsCSV() {
 	categoryUrls, _ := scraper.GetCategoryUrls()
 
-	var companyUrls []string
-	for _, categoryUrl := range categoryUrls {
-		time.Sleep(time.Second * 7)
+	var companyUrls []map[string]string
+	for i, categoryUrl := range categoryUrls {
+		time.Sleep(time.Second * 4)
 
-		fmt.Println("再開します")
-		companyUrlsInList, _ := scraper.GetComUrlByList(categoryUrl)
+		//NOTE: プロキシサーバーが2つの場合で対応しているため2の余りを渡している
+		proxy.SetProxy(i % 2)
 
-		companyUrls = append(companyUrls, companyUrlsInList...)
+		urls, _ := scraper.GetComUrlByList(categoryUrl["url"])
+		if urls == nil {
+			urls, _ = scraper.GetComUrlByList(categoryUrl["url"])
+			fmt.Println(categoryUrl["categoryName"])
+		}
+		for _, url := range urls {
+			var companyUrlInList = map[string]string{"url": url, "categoryName": categoryUrl["categoryName"]}
+
+			companyUrls = append(companyUrls, companyUrlInList)
+		}
 	}
 
 	var records [][]string
 	for i, companyUrl := range companyUrls {
-		record := []string{strconv.Itoa(i), companyUrl, "2021-09-10 14:38:54", "2021-09-10 14:38:54"}
+		record := []string{strconv.Itoa(i), companyUrl["url"], companyUrl["categoryName"], "2021-09-10 14:38:54", "2021-09-10 14:38:54"}
 		records = append(records, record)
 	}
 
@@ -39,14 +48,14 @@ func outputCompanyUrlsCSV() {
 
 // CSVから企業詳細ページのリンクを取得しそのページから情報を取得
 func outputCompanyInfo() {
-	companyUrls := csv.ReadCompanyUrls()
-	for i, companyUrl := range companyUrls {
+	companyUrlsAndNames := csv.ReadCompanyUrls()
+	for i, companyUrlsAndName := range companyUrlsAndNames {
 		time.Sleep(time.Second * 4)
 
 		//NOTE: プロキシサーバーが2つの場合で対応しているため2の余りを渡している
 		proxy.SetProxy(i % 2)
 
-		companyInfoMap := scraper.GetCompanyInfo(companyUrl)
+		companyInfoMap := scraper.GetCompanyInfo(companyUrlsAndName["url"])
 
 		// NOTE: 順番を揃えるためにスライスに書き換えている
 		companyInfoSlice := []string{
@@ -57,9 +66,13 @@ func outputCompanyInfo() {
 			companyInfoMap["住所"],
 			companyInfoMap["従業員数"],
 			companyInfoMap["会社HP"],
+			companyInfoMap["代表名"],
+			companyInfoMap["最新のプレスリリース日"],
+			companyInfoMap["最新の資金調達日"],
+			companyUrlsAndName["categoryName"],
 		}
 		csv.WriteCompanyInfos(companyInfoSlice)
-		log.Println(companyUrl)
+		log.Println(companyInfoSlice)
 	}
 }
 
