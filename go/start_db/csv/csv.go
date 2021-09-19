@@ -112,16 +112,17 @@ func ReadCompanyInfos() {
 		// サイト内で住所が空の場合は — となっている
 		if companyInfo[4] == "—" {
 			fmt.Printf("社名: %s なし \n", companyInfo[0])
-			companyInfo[7] = ""
+			companyInfo[10] = ""
 			WriteCompanyInfoAndTelNum(companyInfo)
 			continue
 		}
 
-		if len(companyInfo[7]) != 0 {
-			fmt.Printf("社名: %s, 電話番号: %s \n", companyInfo[0], companyInfo[7])
-			WriteCompanyInfoAndTelNum(companyInfo)
-			continue
-		}
+		// 電話番号のインデックス
+		//if len(companyInfo[7]) != 0 {
+		//	fmt.Printf("社名: %s, 電話番号: %s \n", companyInfo[0], companyInfo[7])
+		//	WriteCompanyInfoAndTelNum(companyInfo)
+		//	continue
+		//}
 
 		time.Sleep(time.Second * 2)
 		proxy.SetProxy(i % 2)
@@ -132,11 +133,11 @@ func ReadCompanyInfos() {
 
 		if telNum != "" {
 			fmt.Printf("社名: %s, 電話番号: %s \n", companyInfo[0], telNum)
-			companyInfo[7] = telNum
+			companyInfo[11] = telNum
 			WriteCompanyInfoAndTelNum(companyInfo)
 		} else {
 			fmt.Printf("社名: %s なし \n", companyInfo[0])
-			companyInfo[7] = ""
+			companyInfo[11] = ""
 			WriteCompanyInfoAndTelNum(companyInfo)
 		}
 		i++
