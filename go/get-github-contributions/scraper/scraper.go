@@ -9,7 +9,7 @@ import (
 	"get-github-contributions/strings"
 )
 
-// GetContributions 
+// GetContributions contribute数をスクレイピングして返す
 func GetContributions(userName string) int64 {
 	url := "https://github.com/" + userName
 	res, err := http.Get(url)
