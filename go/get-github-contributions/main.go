@@ -1,8 +1,6 @@
 package main
 
-import(
-	"get-github-contributions/scraper"
-)
+import "get-github-contributions/scraper"
 
 func main()  {
 	scraper.GetContributions("sohey-dr")
