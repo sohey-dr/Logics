@@ -1,7 +1,15 @@
 package main
 
-import "get-github-contributions/scraper"
+import (
+	"fmt"
+	"get-github-contributions/csv"
+	"get-github-contributions/scraper"
+)
 
-func main()  {
-	scraper.GetContributions("sohey-dr")
+func main() {
+	users := csv.GetGithubId()
+	for _, user := range users {
+		contributeNum := scraper.GetContributions(user["githubId"])
+		fmt.Println(contributeNum)
+	}
 }
