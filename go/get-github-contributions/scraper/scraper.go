@@ -10,8 +10,8 @@ import (
 	"get-github-contributions/strings"
 )
 
-// GetContributions contribute数をスクレイピングして返す
-func GetContributions(userName string) int {
+// GetContributions contribute数をスクレイピングして返す。
+func GetContributions(userName string) (int64, error) {
 	url := "https://github.com/" + userName
 	res, err := http.Get(url)
 	if err != nil {
@@ -19,7 +19,7 @@ func GetContributions(userName string) int {
 	}
 
 	// NOTE: -1はありえないので取得した時にスクレイピングできなかったことをわかるようにしている
-	contributeNum := -1
+	var contributeNum int64 = -1
 
 	doc, _ := goquery.NewDocumentFromReader(res.Body)
 	// NOTE: 要素が変わることがあるため広いspanタグで指定している
@@ -30,5 +30,9 @@ func GetContributions(userName string) int {
 		}
 	})
 
-	return contributeNum
+	if contributeNum == -1 {
+		return 0, errors.New("failed to retrieve value")
+	}
+
+	return contributeNum, nil
 }
