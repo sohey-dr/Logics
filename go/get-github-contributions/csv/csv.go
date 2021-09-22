@@ -36,3 +36,21 @@ func GetGithubId() []map[string]string {
 
 	return users
 }
+
+// WriteUserContributes 文字列のスライスからCSVに書き込む
+func WriteUserContributes(records []string) {
+	file, err := os.OpenFile("userContributes.csv", os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0644)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
+
+	w := csv.NewWriter(file)
+	defer w.Flush()
+
+	w.Write(records)
+
+	if err := w.Error(); err != nil {
+		log.Fatalln("error writing csv:", err)
+	}
+}
