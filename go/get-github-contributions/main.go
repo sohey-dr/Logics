@@ -6,6 +6,7 @@ import (
 	"get-github-contributions/scraper"
 	"log"
 	"strconv"
+	"time"
 )
 
 func main() {
@@ -20,6 +21,7 @@ func main() {
 			user["contributeNum"] = strconv.FormatInt(contributeNum, 10)
 		}
 
+		time.Sleep(2 * time.Second)
 		fmt.Println(user)
 	}
 }
