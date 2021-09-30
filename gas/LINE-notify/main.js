@@ -3,7 +3,7 @@ const CHANNEL_ACCESS_TOKEN = "";
 const MESSAGE = "これは届いていますか？";
 
 function doPost(r) {
-  const params = JSON.parse(r.postData.getDataAsString());
+  const params = JSON.parse(r.postData.getDataAsString()).events[0];
   send_message(params);
 }
 
@@ -14,10 +14,10 @@ function send_message(params) {
 
   let option = {
     method: "post",
+    headers: headers,
     payload: buildMessage(params),
-    contentType: "application/x-www-form-urlencoded; charset=utf-8",
+    contentType: "application/json",
     muteHttpExceptions: true,
-    Authorization: "Bearer",
   };
 
   let response = UrlFetchApp.fetch(
@@ -39,8 +39,4 @@ function buildMessage(params) {
   };
 
   return JSON.stringify(bodyMessage);
-}
-
-function message() {
-  "こんにちは"
 }
