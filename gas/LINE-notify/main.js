@@ -1,11 +1,12 @@
 function doPost(r) {
-  send_message();
+  const params = JSON.parse(r.postData.getDataAsString());
+  send_message(params);
 }
 
-function send_message(message) {
+function send_message(params) {
   let option = {
     method: "post",
-    payload: buildMessage(),
+    payload: buildMessage(params),
     contentType: "application/x-www-form-urlencoded; charset=utf-8",
     muteHttpExceptions: true,
     Authorization: "Bearer",
@@ -18,16 +19,16 @@ function send_message(message) {
   Logger.log(response);
 }
 
-function buildMessage() {
-    const bodyMessage = {
-    "replyToken": ["replyToken"],
-      "messages": [
-        {
-          "type": "text",
-          "text": message
-        }
-      ]
-    }
+function buildMessage(params) {
+  const bodyMessage = {
+    replyToken: params.replyToken,
+    messages: [
+      {
+        type: "text",
+        text: message,
+      },
+    ],
+  };
 
   return JSON.stringify(bodyMessage);
 }
