@@ -1,9 +1,17 @@
+const CHANNEL_ACCESS_TOKEN = "";
+
+const MESSAGE = "これは届いていますか？";
+
 function doPost(r) {
   const params = JSON.parse(r.postData.getDataAsString());
   send_message(params);
 }
 
 function send_message(params) {
+  var headers = {
+    Authorization: "Bearer " + CHANNEL_ACCESS_TOKEN,
+  };
+
   let option = {
     method: "post",
     payload: buildMessage(params),
@@ -25,7 +33,7 @@ function buildMessage(params) {
     messages: [
       {
         type: "text",
-        text: message,
+        text: MESSAGE,
       },
     ],
   };
