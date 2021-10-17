@@ -8,4 +8,5 @@ edition = "2018"
 
 [dependencies]
 scraper = "0.12.0"
-reqwest = "*"
+reqwest = { version = "0.10.0-alpha.2", features = ["blocking"] }
+eyre = "0.6"

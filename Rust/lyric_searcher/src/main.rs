@@ -1,15 +1,14 @@
 use scraper::{Html, Selector};
 
-fn main() {
+fn main() -> eyre::Result<()>{
     let body  = reqwest::blocking::get("https://blog.rust-lang.org/")?.text()?;
+    println!("{} を取得", body);
 
-    // HTMLをパース
-    let document = scraper::Html::parse_document(&body);
-
-    let fragment = Html::parse_fragment(document);
+    let fragment = Html::parse_fragment(&body);
     let selector = Selector::parse("li").unwrap();
 
     for element in fragment.select(&selector) {
         assert_eq!("li", element.value().name());
     }
+    Ok(())
 }
