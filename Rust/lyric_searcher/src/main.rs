@@ -2,13 +2,16 @@ use scraper::{Html, Selector};
 
 fn main() -> eyre::Result<()>{
     let body  = reqwest::blocking::get("https://blog.rust-lang.org/")?.text()?;
-    println!("{} を取得", body);
 
-    let fragment = Html::parse_fragment(&body);
-    let selector = Selector::parse("li").unwrap();
+    let selector = Selector::parse("td.bn > a").unwrap();
 
-    for element in fragment.select(&selector) {
-        assert_eq!("li", element.value().name());
-    }
+
+    let document = Html::parse_document(&body);
+
+    let elements = document.select(&selector);
+
+    // 全記事名を出力
+    elements.for_each(|e| println!("{}", e.text().next().unwrap()));
+
     Ok(())
 }
