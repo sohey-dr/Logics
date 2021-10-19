@@ -8,10 +8,10 @@ fn main() -> eyre::Result<()>{
     let document = Html::parse_document(&body);
 
     for node in document.select(&selector) {
-        println!("{:?}", node.inner_html());
         let href = node.value().attr("href").unwrap();
 
         if href.contains("uta-net") || href.contains("j-lyric.net") || href.contains("utamap") {
+            println!("{:?}", node.inner_html());
             println!("{:?}", href);
         }
     }
