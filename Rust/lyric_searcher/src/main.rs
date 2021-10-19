@@ -9,7 +9,11 @@ fn main() -> eyre::Result<()>{
 
     for node in document.select(&selector) {
         println!("{:?}", node.inner_html());
-        println!("{:?}", node.value().attr("href"));
+        let href = node.value().attr("href").unwrap();
+
+        if href.contains("uta-net") || href.contains("j-lyric.net") || href.contains("utamap") {
+            println!("{:?}", href);
+        }
     }
 
     Ok(())
