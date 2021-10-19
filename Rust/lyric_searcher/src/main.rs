@@ -1,17 +1,20 @@
 use scraper::{Html, Selector};
 
 fn main() -> eyre::Result<()>{
-    let body  = reqwest::blocking::get("https://blog.rust-lang.org/")?.text()?;
+    let body = reqwest::blocking::get("https://www.google.com/search?q=%E5%90%9B%E3%81%8C%E5%A5%BD%E3%81%8D+%E6%AD%8C%E8%A9%9E")?.text()?;
 
-    let selector = Selector::parse("td.bn > a").unwrap();
-
+    let selector = Selector::parse(".kCrYT > a").unwrap();
 
     let document = Html::parse_document(&body);
 
-    let elements = document.select(&selector);
+    for node in document.select(&selector) {
+        let href = node.value().attr("href").unwrap();
 
-    // 全記事名を出力
-    elements.for_each(|e| println!("{}", e.text().next().unwrap()));
+        if href.contains("uta-net") || href.contains("j-lyric.net") || href.contains("utamap") {
+            println!("{:?}", node.inner_html());
+            println!("{:?}", href);
+        }
+    }
 
     Ok(())
 }
