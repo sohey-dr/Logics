@@ -8,6 +8,7 @@ fn main() -> eyre::Result<()>{
     for node in document.select(&selector) {
         let href = node.value().attr("href").unwrap();
 
+        // モジュールであるscraperの場合Googleをスクレイピングすると無駄な文字列が入るので削除
         let last_index = href.find("&sa=").unwrap();
         let url = &href[7..last_index];
 
