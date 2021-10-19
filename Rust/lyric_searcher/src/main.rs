@@ -11,7 +11,7 @@ fn main() -> eyre::Result<()>{
         let href = node.value().attr("href").unwrap();
 
         if href.contains("uta-net") || href.contains("j-lyric.net") || href.contains("utamap") {
-            println!("{:?}", node.inner_html());
+            println!("{:?}", node.text().collect::<Vec<_>>()[0]);
             println!("{:?}", href);
         }
     }
