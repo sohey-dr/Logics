@@ -2,7 +2,11 @@ require("dotenv").config();
 const puppeteer = require("puppeteer");
 
 class Register {
-  constructor(user) {
+  userId: string;
+  userPrivateRoomId: string;
+  userSlackId: string;
+
+  constructor(user: Array<string>) {
     // userは配列
     this.userId = user[0];
     this.userPrivateRoomId = user[6];
@@ -34,13 +38,13 @@ class Register {
     await browser.close();
   }
 
-  async _login(page) {
+  async _login(page: any) {
     await page.type('input[name="username"]', process.env.USER_NAME);
     await page.type('input[name="password"]', process.env.USER_PASS);
     await page.click('button[type="submit"]');
   }
 
-  async _registerForSlack(page) {
+  async _registerForSlack(page: any) {
     await page.type('input[name="slack_id"]', this.userSlackId);
     await page.type('input[name="messenger_tool_private_room_id"]', this.userPrivateRoomId);
     await page.click('button[type="submit"]');
