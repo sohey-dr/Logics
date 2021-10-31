@@ -7,7 +7,6 @@ class Register {
   userSlackId: string;
 
   constructor(user: Array<string>) {
-    // userは配列
     this.userId = user[0];
     this.userPrivateRoomId = user[6];
     this.userSlackId = user[7];
