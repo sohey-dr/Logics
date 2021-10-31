@@ -17,14 +17,14 @@ while (i < 10) {
   i++
 }
 
-function randomInt(hosts_num_array: any, new_array: any): any {
-    let n = hosts_num_array.length;
-    let k = Math.floor(Math.random() * n);
-    let j = hosts_num_array[k];
+function randomInt(hosts_num_array: Array<number>, new_array: Array<number>): number {
+  let n = hosts_num_array.length;
+  let k = Math.floor(Math.random() * n);
+  let j = hosts_num_array[k];
 
-    new_array.push(hosts_num_array[k]);
-    hosts_num_array.splice(k, 1);
-    console.log(hosts_num_array);
-    console.log(new_array);
-    return j
+  new_array.push(hosts_num_array[k]);
+  hosts_num_array.splice(k, 1);
+  console.log(hosts_num_array);
+  console.log(new_array);
+  return j;
 }
