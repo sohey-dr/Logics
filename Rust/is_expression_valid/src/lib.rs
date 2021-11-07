@@ -8,7 +8,7 @@ extern {
 #[wasm_bindgen]
 pub fn is_expression_valid(word: &str) {
     if is_match_expression_valid(word) {
-        let alert_word = "{} は不適切な表現です".to_string() + word;
+        let alert_word = word.to_string() + "は不適切な表現です";
         alert(&alert_word);
         return;
     }
