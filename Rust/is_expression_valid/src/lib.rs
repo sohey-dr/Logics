@@ -6,8 +6,11 @@ extern {
 }
 
 #[wasm_bindgen]
-pub fn is_expression_valid(name: &str) {
-    alert(&format!("Hello, {}!", name));
+pub fn is_expression_valid(word: &str) {
+    if word == "" {
+        alert("不適切な値です");
+        return;
+    }
 }
 
 #[cfg(test)]
