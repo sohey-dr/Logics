@@ -18,18 +18,18 @@ fn is_match_expression_valid(word: &str) -> bool {
     let invalid_words = vec!["うんち", "うんこ", "おしっこ"];
     for iw in invalid_words {
         if iw.contains(word) {
-            return false;
+            return true;
         }
     }
 
-    return true;
+    return false;
 }
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn is_match_expression_valid() {
-        assert_eq!(super::is_match_expression_valid("うんち"), false);
+        assert_eq!(super::is_match_expression_valid("うんち"), true);
     }
 
     #[test]
