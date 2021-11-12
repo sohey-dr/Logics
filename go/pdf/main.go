@@ -7,9 +7,9 @@ import (
 func main() {
 
 	pdf := gopdf.GoPdf{}
-	pdf.Start(gopdf.Config{ PageSize: *gopdf.PageSizeA4 })  
+	pdf.Start(gopdf.Config{ PageSize: *gopdf.PageSizeA4 })
 	pdf.AddPage()
-	err := pdf.AddTTFFont("wts11", "../ttf/wts11.ttf")
+	err := pdf.AddTTFFont("wts11", "./ttf/wts11.ttf")
 	if err != nil {
 		log.Print(err.Error())
 		return
@@ -20,7 +20,7 @@ func main() {
 		log.Print(err.Error())
 		return
 	}
-	pdf.Cell(nil, "您好")
+	pdf.Cell(nil, "hello")
 	pdf.WritePdf("hello.pdf")
 
 }
