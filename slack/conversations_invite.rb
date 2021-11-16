@@ -12,7 +12,7 @@ Slack.configure do |conf|
 end
 
 client = Slack::Web::Client.new
-CSV.foreach('slack/tech_bowl/channels.csv') do |row|
+CSV.foreach('channels.csv') do |row|
   if row[2] == "mentor_private"
     begin
       puts client.conversations_invite(channel: row[1], users: "UU6MYT400")

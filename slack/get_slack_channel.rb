@@ -29,7 +29,7 @@ class GetSlackChannel
       channel_name = c["name"]
       channel_type = c["is_private"] ? find_private_channel_type(c) : "public"
 
-      CSV.open('slack/channels.csv','a') do |csv|
+      CSV.open('channels.csv','a') do |csv|
         csv << [i ,c["id"], channel_type, channel_name, Time.new, Time.new]
       end
       i += 1
@@ -37,7 +37,7 @@ class GetSlackChannel
   end
 
   def find_private_channel_type(c)
-    case 
+    case
     when /academy|career|boarding|transfer/ =~ c["name"]
       "user_private"
     when c["name"].include?("mentor-") || c["name"].include?("mentor_")
