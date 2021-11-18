@@ -31,8 +31,12 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
     window
         .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), 1000)?;
     fn update_time(current_time: &Element) {
-        current_time.set_inner_html(&String::from(
-            Date::new_0().to_locale_string("en-GB", &JsValue::undefined()),
+        let date = Date::new_0();
+        current_time.set_inner_html(&format!(
+            "{}:{}:{}",
+            date.get_hours().to_string(),
+            &date.get_minutes().to_string(),
+            &date.get_seconds().to_string()
         ));
     }
     a.forget();
