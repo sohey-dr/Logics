@@ -1,7 +1,7 @@
 use js_sys::{Date};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsCast;
-use web_sys::{Document, Element, HtmlElement, Window};
+use web_sys::{Document, Element, Window};
 
 #[wasm_bindgen(start)]
 pub fn run() -> Result<(), JsValue> {
@@ -9,14 +9,6 @@ pub fn run() -> Result<(), JsValue> {
     let document = window.document().expect("window should have a document");
 
     setup_clock(&window, &document)?;
-
-    document
-        .get_element_by_id("script")
-        .expect("should have #script on the page")
-        .dyn_ref::<HtmlElement>()
-        .expect("#script should be an `HtmlElement`")
-        .style()
-        .set_property("display", "block")?;
 
     Ok(())
 }
@@ -38,7 +30,10 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
         }
 
         current_time.set_inner_html(&format!(
-            "{}:{}:{}",
+            "{} {}/{} {}:{}:{}",
+            date.get_full_year(),
+            date.get_month(),
+            date.get_date(),
             date.get_hours().to_string(),
             date.get_minutes().to_string(),
             seconds
