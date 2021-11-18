@@ -23,11 +23,11 @@ pub fn run() -> Result<(), JsValue> {
 
 
 fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
-    let current_time = document
-        .get_element_by_id("current-time")
-        .expect("should have #current-time on the page");
-    update_time(&current_time);
-    let a = Closure::wrap(Box::new(move || update_time(&current_time)) as Box<dyn Fn()>);
+    let time = document
+        .get_element_by_id("time")
+        .expect("should have #time on the page");
+    update_time(&time);
+    let a = Closure::wrap(Box::new(move || update_time(&time)) as Box<dyn Fn()>);
     window
         .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), 1000)?;
     fn update_time(current_time: &Element) {
