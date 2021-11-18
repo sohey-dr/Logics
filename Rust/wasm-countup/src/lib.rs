@@ -32,11 +32,16 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
         .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), 1000)?;
     fn update_time(current_time: &Element) {
         let date = Date::new_0();
+        let mut seconds = date.get_seconds().to_string();
+        if seconds.len() == 1 {
+            seconds = format!("0{}", seconds);
+        }
+
         current_time.set_inner_html(&format!(
             "{}:{}:{}",
             date.get_hours().to_string(),
-            &date.get_minutes().to_string(),
-            &date.get_seconds().to_string()
+            date.get_minutes().to_string(),
+            seconds
         ));
     }
     a.forget();
