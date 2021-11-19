@@ -15,25 +15,38 @@ pub fn run() -> Result<(), JsValue> {
 
 
 fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
+    let year = document
+        .get_element_by_id("year")
+        .expect("should have #time on the page");
+    let days = document
+        .get_element_by_id("days")
+        .expect("should have #time on the page");
     let time = document
         .get_element_by_id("time")
         .expect("should have #time on the page");
-    update_time(&time);
-    let a = Closure::wrap(Box::new(move || update_time(&time)) as Box<dyn Fn()>);
+    // 読み込み時に時間を取得
+    update_time(&year, &days, &time);
+
+    // 毎秒時計を更新
+    let a = Closure::wrap(Box::new(move || update_time(&year, &days, &time)) as Box<dyn Fn()>);
     window
         .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), 1000)?;
-    fn update_time(current_time: &Element) {
+    fn update_time(year: &Element, days: &Element, time: &Element) {
         let date = Date::new_0();
         let mut seconds = date.get_seconds().to_string();
         if seconds.len() == 1 {
             seconds = format!("0{}", seconds);
         }
 
-        current_time.set_inner_html(&format!(
-            "{} {}/{} {}:{}:{}",
-            date.get_full_year(),
+        year.set_inner_html(&date.get_full_year().to_string());
+
+        days.set_inner_html(&format!(
+            "{}/{}",
             date.get_month(),
-            date.get_date(),
+            date.get_day()));
+
+        time.set_inner_html(&format!(
+            "{}:{}:{}",
             date.get_hours().to_string(),
             date.get_minutes().to_string(),
             seconds
