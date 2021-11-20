@@ -33,10 +33,6 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
         .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), 1000)?;
     fn update_time(year: &Element, days: &Element, time: &Element) {
         let date = Date::new_0();
-        let mut seconds = date.get_seconds().to_string();
-        if seconds.len() == 1 {
-            seconds = format!("0{}", seconds);
-        }
 
         year.set_inner_html(&date.get_full_year().to_string());
 
@@ -45,6 +41,10 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
             date.get_month(),
             date.get_day()));
 
+        let mut seconds = date.get_seconds().to_string();
+        if seconds.len() == 1 {
+            seconds = format!("0{}", seconds);
+        }
         time.set_inner_html(&format!(
             "{}:{}:{}",
             date.get_hours().to_string(),
