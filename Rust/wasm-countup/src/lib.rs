@@ -52,6 +52,8 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
             seconds
         ));
     }
+
+    // メモリ管理のためにJS側に権限を渡す
     closure.forget();
 
     Ok(())
