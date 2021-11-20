@@ -28,7 +28,7 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
     update_time(&year, &days, &time);
 
     // 毎秒時計を更新
-    let a = Closure::wrap(Box::new(move || update_time(&year, &days, &time)) as Box<dyn Fn()>);
+    let closure = Closure::wrap(Box::new(move || update_time(&year, &days, &time)) as Box<dyn Fn()>);
     window
         .set_interval_with_callback_and_timeout_and_arguments_0(a.as_ref().unchecked_ref(), 1000)?;
     fn update_time(year: &Element, days: &Element, time: &Element) {
@@ -52,7 +52,7 @@ fn setup_clock(window: &Window, document: &Document) -> Result<(), JsValue> {
             seconds
         ));
     }
-    a.forget();
+    closure.forget();
 
     Ok(())
 }
