@@ -1,0 +1,34 @@
+version: '3'
+services:
+  go:
+    build:
+      context: .
+      dockerfile: docker/go/Dockerfile
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app
+    ports:
+      - 8080:8080
+
+  db:
+    build:
+      context: .
+      dockerfile: docker/db/Dockerfile
+    platform: linux/x86_64
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: go_database
+      MYSQL_USER: go_test
+      MYSQL_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - db-store:/var/lib/mysql
+      - db-log-store:/var/log/mysql
+      - ./docker/db/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - 3306:3306
+
+volumes:
+  db-store:
+  db-log-store:
