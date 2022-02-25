@@ -37,7 +37,7 @@ func main() {
 	json.Unmarshal(jsonStr, &result2)
 
 	fmt.Println(result2)
-
+	fmt.Println(result2.Hobby)
 }
 
 type Request struct {
@@ -48,4 +48,5 @@ type Request struct {
 type Request2 struct {
 	Name string `json:"name"`
 	Age  int    `json:"age"`
+	Hobby []string `json:"hobby"`
 }

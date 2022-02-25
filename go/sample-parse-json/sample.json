@@ -2,6 +2,10 @@
   "id": 1,
   "jsons": {
     "name": "test",
-    "age": "18"
+    "age": "18",
+    "hobby": [
+      "reading",
+      "writing"
+    ]
   }
 }
