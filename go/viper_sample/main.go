@@ -5,17 +5,34 @@ import (
 	"github.com/spf13/viper"
 )
 
+type Config struct {
+	Database Database
+	User User
+}
+
+type User struct {
+	Name string
+	Age int
+}
+
+type Database struct {
+	Host string
+	Port int
+}
+
 func main() {
-	viper.SetConfigName("config")
-	viper.AddConfigPath(".")
-	err := viper.ReadInConfig()
+	v := viper.New()
+	v.SetConfigName("config")
+	v.AddConfigPath(".")
+	err := v.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
-	fmt.Println("Using config file:", viper.ConfigFileUsed())
-	fmt.Println("DB_HOST:", viper.GetString("DB_HOST"))
-	fmt.Println("DB_PORT:", viper.GetInt("DB_PORT"))
-	fmt.Println("DB_USER:", viper.GetString("DB_USER"))
-	fmt.Println("DB_PASS:", viper.GetString("DB_PASS"))
-	fmt.Println("DB_NAME:", viper.GetString("DB_NAME"))
+
+	var config Config
+
+	err = v.Unmarshal(&config)
+	if err != nil {
+		panic(fmt.Errorf("unable to decode into struct: %v", err))
+	}
 }
