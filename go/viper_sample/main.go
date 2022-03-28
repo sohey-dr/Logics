@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/spf13/viper"
 )
 
@@ -26,6 +28,10 @@ func main() {
 	v.SetConfigType("yaml")
 
 	v.AddConfigPath(".")
+
+	v.AutomaticEnv()
+
+	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
 	err := v.ReadInConfig()
 	if err != nil {
