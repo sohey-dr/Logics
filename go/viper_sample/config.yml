@@ -1,0 +1,6 @@
+user:
+  name: "John Doe"
+  age: 30
+database:
+  host: "localhost"
+  port: 3306
