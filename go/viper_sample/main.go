@@ -23,7 +23,10 @@ type Database struct {
 func main() {
 	v := viper.New()
 	v.SetConfigName("config")
+	v.SetConfigType("yaml")
+
 	v.AddConfigPath(".")
+
 	err := v.ReadInConfig()
 	if err != nil {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
@@ -35,4 +38,6 @@ func main() {
 	if err != nil {
 		panic(fmt.Errorf("unable to decode into struct: %v", err))
 	}
+
+	fmt.Printf("%+v\n", config)
 }
