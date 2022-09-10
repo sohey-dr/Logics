@@ -15,4 +15,18 @@ func main() {
 	}
 
 	println("connected to database")
+
+	rows, err := db.Raw("show tables").Rows()
+	if err != nil {
+			panic(err.Error())
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+			var table string
+			if err := rows.Scan(&table); err != nil {
+					panic(err.Error())
+			}
+			fmt.Println(table)
+	}
 }
